@@ -16,6 +16,13 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@Common/*": ["src/common/*"],
+      "@Countries/*": ["src/countries/*"],
+      "@Config/*": ["src/config/*"],
+       "@Tests/*": ["test/*"],
+      "@/*": ["src/*"],
+    }
   }
 }

@@ -21,16 +21,6 @@ describe('CountriesController (e2e)', () => {
   });
 
   it('It should return a list of countries (GET)', async () => {
-    // return request(app.getHttpServer())
-    //   .get('/countries')
-    //   .expect(HttpStatus.OK)
-    //   .expect(({ body }) => {
-    //     const { success, message, data } = body;
-    //     expect(success).toBeDefined();
-    //     expect(message).toBeDefined();
-    //     expect(data).toBeDefined();
-    //   });
-
     const response = await request(app.getHttpServer()).get('/countries');
 
     expect(response.status).toBe(HttpStatus.OK);

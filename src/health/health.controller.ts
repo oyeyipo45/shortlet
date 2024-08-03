@@ -1,6 +1,6 @@
 import { CONSTANTS } from '@Common/constants';
 import { Config } from '@Common/types/config.type';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Version } from '@nestjs/common';
 import {
   HealthCheck,
   HealthCheckResult,
@@ -9,7 +9,9 @@ import {
   HttpHealthIndicator,
 } from '@nestjs/terminus';
 import { ConfigService } from '@nestjs/config';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
+@ApiTags('Health')
 @Controller({ path: 'health' })
 export class HealthController {
   constructor(
@@ -18,7 +20,9 @@ export class HealthController {
     private configService: ConfigService<Config, true>,
   ) {}
 
-  @Get("application")
+  @Version('1')
+  @ApiOperation({ summary: 'Check application health' })
+  @Get('application')
   @HealthCheck()
   async healthCheck(): Promise<HealthCheckResult> {
     return this.healthCheckService.check([
@@ -28,6 +32,8 @@ export class HealthController {
     ]);
   }
 
+  @Version('1')
+  @ApiOperation({ summary: 'Check countries external API health' })
   @Get('external-api-health')
   @HealthCheck()
   async ExternalApiHealth(): Promise<HealthCheckResult> {

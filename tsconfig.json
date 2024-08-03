@@ -21,7 +21,8 @@
       "@Common/*": ["src/common/*"],
       "@Countries/*": ["src/countries/*"],
       "@Config/*": ["src/config/*"],
-       "@Tests/*": ["test/*"],
+      "@ExternalAPI/*": ["src/externalAPI/*"],
+      "@Tests/*": ["e2e/*"],
       "@/*": ["src/*"],
     }
   }

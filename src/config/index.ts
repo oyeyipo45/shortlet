@@ -1,4 +1,4 @@
-import { Environment } from '@Common/types/env.enum';
+import { Environment } from '@Common/types/env.enums';
 
 export const configuration = (): {
   nodeENV: Environment;

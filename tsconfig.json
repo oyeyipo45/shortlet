@@ -23,6 +23,7 @@
       "@Config/*": ["src/config/*"],
       "@ExternalAPI/*": ["src/externalAPI/*"],
       "@Health/*": ["src/health/*"],
+      "@Utils/*": ["src/utils/*"],
       "@Tests/*": ["e2e/*"],
       "@/*": ["src/*"],
     }

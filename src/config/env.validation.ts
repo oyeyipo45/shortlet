@@ -1,5 +1,5 @@
 import { Config } from '@Common/types/config.type';
-import { Environment } from '@Common/types/env.enum';
+import { Environment } from '@Common/types/env.enums';
 import { plainToClass } from 'class-transformer';
 import {
   IsDefined,

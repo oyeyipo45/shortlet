@@ -1,14 +1,22 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Country } from '@Countries/types/country.type';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
+import { GetCountriesParams } from './types/country-filter-params';
+import { paginateData } from '@Common/paginate';
+import { PaginateDataInterface } from '@Common/types/types';
 
 @Injectable()
 export class CountriesService {
   constructor(private readonly externalAPIService: ExternalAPIService) {}
 
-  async getCountries(): Promise<APIResponse<Country[]>> {
-    const { data, error } = await this.externalAPIService.getCountries();
+  async getCountries(
+    params: GetCountriesParams,
+  ): Promise<APIResponse<PaginateDataInterface>> {
+    const { page, limit } = params;
+
+    // Fetch data from exteral data service
+    const { data: response, error } =
+      await this.externalAPIService.getCountries(params);
 
     if (error) {
       throw new HttpException(
@@ -17,18 +25,21 @@ export class CountriesService {
       );
     }
 
-    if (!data) {
+    if (!response) {
       throw new HttpException(
         'No country data available',
         HttpStatus.NOT_FOUND,
       );
     }
 
-    const apiResponse: APIResponse<Country[]> = {
+    // Add pagination
+    const paginatedData = paginateData(response, page, limit);
+
+    const apiResponse: APIResponse<PaginateDataInterface> = {
       success: true,
       status: HttpStatus.OK,
       message: 'Countries retrieved successfully',
-      data,
+      data: paginatedData,
     };
     return apiResponse;
   }

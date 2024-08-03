@@ -36,7 +36,7 @@ async function bootstrap() {
     .setTitle('Shortlet API')
     .setDescription('OpenAPI swagger documentation for Shortlet backend')
     .addTag('Countries', 'Operations related to countries external API')
-    .addTag('Health', 'Health checks for application, database and Core')
+    .addTag('Health', 'Health checks for application and countries external API')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

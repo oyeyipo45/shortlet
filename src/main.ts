@@ -2,10 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/app.module';
 import { configuration } from '@Config/index';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { Environment } from '@Common/types/env.enum';
 import { VersioningType } from '@nestjs/common';
 import * as compression from 'compression';
-import helmet from 'helmet'
+import helmet from 'helmet';
+import { Environment } from '@/Common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -36,7 +36,10 @@ async function bootstrap() {
     .setTitle('Shortlet API')
     .setDescription('OpenAPI swagger documentation for Shortlet backend')
     .addTag('Countries', 'Operations related to countries external API')
-    .addTag('Health', 'Health checks for application and countries external API')
+    .addTag(
+      'Health',
+      'Health checks for application and countries external API',
+    )
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

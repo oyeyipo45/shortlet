@@ -1,5 +1,4 @@
 import { CONSTANTS } from '@Common/constants';
-import { Config } from '@Common/types/config.type';
 import { Controller, Get, Version } from '@nestjs/common';
 import {
   HealthCheck,
@@ -10,6 +9,7 @@ import {
 } from '@nestjs/terminus';
 import { ConfigService } from '@nestjs/config';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { Config } from '@Common/types';
 
 @ApiTags('Health')
 @Controller({ path: 'health' })

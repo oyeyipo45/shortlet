@@ -3,9 +3,9 @@ import { ExternalAPIModule } from '@ExternalAPI/externalAPI.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { configuration } from '@Config/index';
-import { configValidator } from '@Config/env.validation';
-import { Environment } from '@Common/types/env.enum';
 import { HealthModule } from '@Health/health.module';
+import { Environment } from '@/Common';
+import { configValidator } from '@Config/env.validation';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -14,11 +14,12 @@ import { HealthModule } from '@Health/health.module';
       cache: true,
       load: [configuration],
       validate: configValidator,
-      envFilePath: configuration().nodeENV === Environment.TEST ? '.env.local' : '.env',
+      envFilePath:
+        configuration().nodeENV === Environment.TEST ? '.env.local' : '.env',
     }),
     CountriesModule,
     ExternalAPIModule,
-    HealthModule
+    HealthModule,
   ],
   controllers: [],
   providers: [],

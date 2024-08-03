@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CountriesController } from '@Countries/countries.controller';
 import { CountriesService } from '@Countries/countries.service';
 import { HttpStatus } from '@nestjs/common';
+import { GetCountriesParams } from '@Countries/types';
 
 describe('CountriesController', () => {
   let countriesController: CountriesController;
@@ -99,7 +100,11 @@ describe('CountriesController', () => {
         message: 'Countries retrieved successfully',
       };
 
-      expect(await countriesController.getCountries()).toBe(result);
+      const query: GetCountriesParams = {
+        page: 1,
+        limit: 10,
+      };
+      expect(await countriesController.getCountries(query)).toBe(result);
     });
   });
 });

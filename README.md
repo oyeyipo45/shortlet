@@ -34,3 +34,7 @@
   ```
   npm run test:e2e
   ```
+
+* Find API documentation below.
+  * <p>Local - <a href="http://localhost:8850/api-docs">SHORTLET API DOCUMENTATION </a></p>
+  * <p>Deployed - <a href="http://localhost:8850/api-docs">SHORTLET API DOCUMENTATION </a></p>

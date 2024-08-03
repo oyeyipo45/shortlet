@@ -1,5 +1,5 @@
 import { Country } from '@Countries/types/country.type';
-import { PaginateDataInterface } from '@Common/types/types';
+import { PaginateDataInterface } from '@Common/types/paginate-type';
 
 export const paginateData = (
   data: Country[],

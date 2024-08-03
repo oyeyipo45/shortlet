@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
-import { GetCountriesParams } from './types/country-filter-params';
+import { GetCountriesParams } from '@Countries/types/country-filter-params';
 import { paginateData } from '@Common/paginate';
-import { PaginateDataInterface } from '@Common/types/types';
+import { PaginateDataInterface } from '@Common/types/paginate-type';
 
 @Injectable()
 export class CountriesService {

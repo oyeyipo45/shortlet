@@ -6,6 +6,8 @@ import { configuration } from '@Config/index';
 import { HealthModule } from '@Health/health.module';
 import { Environment } from '@/Common';
 import { configValidator } from '@Config/env.validation';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from '@Common/http-exception.filter';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,6 +24,11 @@ import { configValidator } from '@Config/env.validation';
     HealthModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}

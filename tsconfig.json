@@ -24,6 +24,7 @@
       "@ExternalAPI/*": ["src/externalAPI/*"],
       "@Health/*": ["src/health/*"],
       "@Utils/*": ["src/utils/*"],
+      "@Cache/*": ["src/cache/*"],
       "@Tests/*": ["e2e/*"],
       "@/*": ["src/*"],
     }

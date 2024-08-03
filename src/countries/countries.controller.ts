@@ -3,7 +3,7 @@ import { CountriesService } from '@Countries/countries.service';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { GetCountriesParams } from '@Countries/types/country-filter-params';
-import { PaginateDataInterface } from '@Common/types/types';
+import { PaginateDataInterface } from '@Common/types/paginate-type';
 
 @ApiTags('Countries')
 @Controller()
@@ -46,3 +46,4 @@ export class CountriesController {
 
 // TODO
 // come back to this filters
+// Add rate limiting

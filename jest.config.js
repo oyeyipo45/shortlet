@@ -14,6 +14,8 @@ module.exports = {
     '^@ExternalAPI/(.*)$': '<rootDir>/src/externalAPI/$1',
     '^@Countries/(.*)$': '<rootDir>/src/countries/$1',
     '^@Health/(.*)$': '<rootDir>/src/health/$1',
+    '^@Cache/(.*)$': '<rootDir>/src/cache/$1',
+    '^@Utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@Tests/(.*)$': '<rootDir>/e2e/$1',
     '^@/(.*)$': '<rootDir>/src/$1',
   },

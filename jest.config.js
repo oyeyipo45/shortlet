@@ -13,6 +13,7 @@ module.exports = {
     '^@Config/(.*)$': '<rootDir>/src/config/$1',
     '^@ExternalAPI/(.*)$': '<rootDir>/src/externalAPI/$1',
     '^@Countries/(.*)$': '<rootDir>/src/countries/$1',
+    '^@Health/(.*)$': '<rootDir>/src/health/$1',
     '^@Tests/(.*)$': '<rootDir>/e2e/$1',
     '^@/(.*)$': '<rootDir>/src/$1',
   },

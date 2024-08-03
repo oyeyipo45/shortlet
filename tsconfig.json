@@ -22,6 +22,7 @@
       "@Countries/*": ["src/countries/*"],
       "@Config/*": ["src/config/*"],
       "@ExternalAPI/*": ["src/externalAPI/*"],
+      "@Health/*": ["src/health/*"],
       "@Tests/*": ["e2e/*"],
       "@/*": ["src/*"],
     }

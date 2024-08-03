@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { configuration } from '@Config/index';
 import { configValidator } from '@Config/env.validation';
 import { Environment } from '@Common/types/env.enum';
+import { HealthModule } from '@Health/health.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -17,6 +18,7 @@ import { Environment } from '@Common/types/env.enum';
     }),
     CountriesModule,
     ExternalAPIModule,
+    HealthModule
   ],
   controllers: [],
   providers: [],

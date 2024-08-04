@@ -35,7 +35,7 @@ export class ExternalAPIService {
       );
 
       // Cache country data
-      await this.cacheManager.set('countries', data);
+      await this.cacheManager.set('countries', data, 3600);
 
       return { data, error: null };
     } catch (error) {

@@ -47,7 +47,6 @@ export class CountriesService {
 
     // Paginate data
     const paginatedData = paginateData(data, page, limit);
-    await this.cacheManager.set('countries', data, 3600); // Cache for 1 hour
 
     return this.createApiResponse(paginatedData);
   }

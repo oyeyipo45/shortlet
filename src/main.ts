@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { VersioningType } from '@nestjs/common';
 import * as compression from 'compression';
 import helmet from 'helmet';
-import { Environment } from '@/Common';
+import { Environment } from './common/types/env.enums';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {

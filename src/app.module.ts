@@ -4,11 +4,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { configuration } from '@Config/index';
 import { HealthModule } from '@Health/health.module';
-import { Environment } from '@/Common';
+import { HttpExceptionFilter } from './common/http-exception.filter';
+import {
+  Environment,
+} from './common/types/env.enums';
 import { configValidator } from '@Config/env.validation';
 import { APP_FILTER } from '@nestjs/core';
-import { HttpExceptionFilter } from '@Common/http-exception.filter';
-
 
 @Module({
   imports: [

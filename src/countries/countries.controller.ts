@@ -1,14 +1,19 @@
-import { Controller, Get, Query, Version } from '@nestjs/common';
+import { Controller, Get, Inject, Query, Version } from '@nestjs/common';
 import { CountriesService } from '@Countries/countries.service';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { GetCountriesParams } from '@Countries/types/country-filter-params';
 import { PaginateDataInterface } from '@Common/types/paginate-type';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @ApiTags('Countries')
 @Controller()
 export class CountriesController {
-  constructor(private readonly CountriesService: CountriesService) {}
+  constructor(
+    private readonly CountriesService: CountriesService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  ) {}
 
   @Version('1')
   @ApiOperation({ summary: 'Get countries' })
@@ -40,6 +45,14 @@ export class CountriesController {
   async getCountries(
     @Query() query: GetCountriesParams,
   ): Promise<APIResponse<PaginateDataInterface>> {
+    // const value = await this.cacheManager.get('key');
+
+    // console.log(value, "KJSBJVSBVJSBV");
+
+    // const gg = await this.cacheManager.set('key', 'damilola');
+    
+    // console.log(gg, "dkkdnvkdnv");
+    
     return this.CountriesService.getCountries(query);
   }
 }

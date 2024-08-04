@@ -45,13 +45,6 @@ export class CountriesController {
   async getCountries(
     @Query() query: GetCountriesParams,
   ): Promise<APIResponse<PaginateDataInterface>> {
-    // const value = await this.cacheManager.get('key');
-
-    // console.log(value, "KJSBJVSBVJSBV");
-
-    // const gg = await this.cacheManager.set('key', 'damilola');
-    
-    // console.log(gg, "dkkdnvkdnv");
     
     return this.CountriesService.getCountries(query);
   }

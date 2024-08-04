@@ -34,7 +34,8 @@ export class ExternalAPIService {
         `${API_PATH.ALL}/${filter}`,
       );
 
-      const gg = await this.cacheManager.set('countries', data);
+      // Cache country data
+      await this.cacheManager.set('countries', data);
 
       return { data, error: null };
     } catch (error) {

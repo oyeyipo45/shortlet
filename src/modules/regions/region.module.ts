@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { RegionController } from '@Modules/regions/region.controller';
 import { RegionService } from '@Modules/regions/region.service';
-import { ExternalAPIModule } from '@ExternalAPI/externalAPI.module';
+import { ExternalAPIModule } from '@Modules/externalAPI/externalAPI.module';
 import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({

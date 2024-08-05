@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { APIResponse } from '@Common/types/api-response.type';
-import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
-import { Filter, QueryFilterParams } from '@Common/types/query-filter-params';
+import { ExternalAPIService } from '@Modules/externalAPI/externalAPI.service';
+import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { paginateData } from '@Common/paginate';
 import { PaginateDataInterface } from '@Common/types/paginate-type';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -55,9 +55,9 @@ export class CountriesService {
     return this.createApiResponse(paginatedData);
   }
 
-  async getCountry(params: Filter): Promise<APIResponse<Country[]>> {
+  async getCountry(country: string): Promise<APIResponse<Country[]>> {
     // Fetch country
-    const { data, error } = await this.externalAPIService.getCountry(params);
+    const { data, error } = await this.externalAPIService.getCountry(country);
 
     if (error) {
       throw new HttpException(

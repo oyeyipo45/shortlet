@@ -1,9 +1,9 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { API_PATH } from '@ExternalAPI/constants';
+import { API_PATH } from '@Modules/externalAPI/constants';
 import { QueryResponse } from '@Common/types';
 import { Country } from '@/modules/countries/types/country.type';
-import { Filter, QueryFilterParams } from '@Common/types/query-filter-params';
+import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { RegionInterface } from '@Modules/regions/types';
 
 @Injectable()
@@ -36,12 +36,10 @@ export class ExternalAPIService {
     }
   }
 
-  async getCountry(params: Filter): Promise<QueryResponse<Country[]>> {
-    const { filter } = params;
-
+  async getCountry(country: string): Promise<QueryResponse<Country[]>> {
     try {
       const { data } = await this.httpService.axiosRef.get<Country[]>(
-        `/name/${filter.toLowerCase()}`,
+        `/name/${country.toLowerCase()}`,
       );
 
       return { data, error: null };
@@ -63,6 +61,7 @@ export class ExternalAPIService {
   }
 
   async getRegion(region: string): Promise<QueryResponse<Country[]>> {
+    
     try {
       const { data } = await this.httpService.axiosRef.get<Country[]>(
         `/region/${region.toLowerCase()}`,

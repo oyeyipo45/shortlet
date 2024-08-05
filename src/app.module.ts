@@ -1,9 +1,9 @@
 import { CountriesModule } from '@/Modules/countries/countries.module';
-import { ExternalAPIModule } from '@ExternalAPI/externalAPI.module';
+import { ExternalAPIModule } from '@Modules/externalAPI/externalAPI.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { configuration } from '@Config/index';
-import { HealthModule } from '@Health/health.module';
+import { HealthModule } from '@Modules/health/health.module';
 import { HttpExceptionFilter } from './common/http-exception.filter';
 import { Environment } from './common/types/env.enums';
 import { configValidator } from '@Config/env.validation';

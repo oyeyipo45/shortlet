@@ -2,7 +2,7 @@ import { Controller, Get, Inject, Param, Query } from '@nestjs/common';
 import { CountriesService } from '@/modules/countries/countries.service';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation, ApiQuery, ApiParam } from '@nestjs/swagger';
-import { Filter, QueryFilterParams } from '@Common/types/query-filter-params';
+import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { PaginateDataInterface } from '@Common/types/paginate-type';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
@@ -56,8 +56,10 @@ export class CountriesController {
     description: 'Country name',
     type: 'string',
   })
-  async getCountry(@Param() params: Filter): Promise<APIResponse<Country[]>> {
-    return this.CountriesService.getCountry(params);
+  async getCountry(
+    @Param('country') country: string,
+  ): Promise<APIResponse<Country[]>> {
+    return this.CountriesService.getCountry(country);
   }
 }
 

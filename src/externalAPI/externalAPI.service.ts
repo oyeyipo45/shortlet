@@ -3,7 +3,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import { API_PATH } from '@ExternalAPI/constants';
 import { QueryResponse } from '@Common/types';
 import { Country } from '@Countries/types/country.type';
-import { GetCountriesParams } from '@Countries/types/country-filter-params';
+import {
+  CountryFilter,
+  GetCountriesParams,
+} from '@Countries/types/country-filter-params';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 
@@ -36,6 +39,20 @@ export class ExternalAPIService {
 
       // Cache country data
       await this.cacheManager.set('countries', data, 3600);
+
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
+  }
+
+  async getCountry(params: CountryFilter): Promise<QueryResponse<Country[]>> {
+    const { country } = params;
+
+    try {
+      const { data } = await this.httpService.axiosRef.get<Country[]>(
+        `/name/${country}`,
+      );
 
       return { data, error: null };
     } catch (error) {

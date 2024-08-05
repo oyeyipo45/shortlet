@@ -28,7 +28,7 @@ describe('RegionsController (e2e)', () => {
     expect(response.status).toBe(HttpStatus.OK);
   });
 
-  it('It should return list of countries in a selected region marching search parameter (GET)', async () => {
+  it('It should return list of countries in a selected region matching search parameter (GET)', async () => {
     const region = 'europe';
     const response = await request(app.getHttpServer()).get(
       `/api/regions/${region}`,

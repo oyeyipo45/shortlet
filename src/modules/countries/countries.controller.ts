@@ -1,12 +1,12 @@
 import { Controller, Get, Inject, Param, Query } from '@nestjs/common';
-import { CountriesService } from '@/modules/countries/countries.service';
+import { CountriesService } from '@/Modules/countries/countries.service';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation, ApiQuery, ApiParam } from '@nestjs/swagger';
 import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { PaginateDataInterface } from '@Common/types/paginate-type';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { Country } from '@/modules/countries/types/country.type';
+import { Country } from '@/Modules/countries/types/country.type';
 
 @ApiTags('Countries')
 @Controller({ version: '1' })

@@ -6,7 +6,7 @@ import { paginateData } from '@Common/paginate';
 import { PaginateDataInterface } from '@Common/types/paginate-type';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { Country } from '@/modules/countries/types';
+import { Country } from '@/Modules/countries/types';
 
 @Injectable()
 export class CountriesService {

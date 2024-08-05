@@ -28,7 +28,7 @@ describe('CountriesController (e2e)', () => {
     expect(response.status).toBe(HttpStatus.OK);
   });
 
-  it('It should return a selected country marching search parameter (GET)', async () => {
+  it('It should return a selected country matching search parameter (GET)', async () => {
     const country = 'nigeria';
     const response = await request(app.getHttpServer()).get(
       `/api/countries/${country}`,

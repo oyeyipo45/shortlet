@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { API_PATH } from '@Modules/externalAPI/constants';
 import { QueryResponse } from '@Common/types';
-import { Country } from '@/modules/countries/types/country.type';
+import { Country } from '@/Modules/countries/types/country.type';
 import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { RegionInterface } from '@Modules/regions/types';
 

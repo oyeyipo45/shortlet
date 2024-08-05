@@ -1,4 +1,4 @@
-import { Country } from '@/modules/countries/types/country.type';
+import { Country } from '@/Modules/countries/types/country.type';
 import { PaginateDataInterface } from '@Common/types/paginate-type';
 
 export const paginateData = (

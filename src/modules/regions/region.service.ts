@@ -4,10 +4,10 @@ import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
 import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { RegionInterface } from '@Modules/region/types';
+import { RegionInterface } from '@Modules/regions/types';
 import { PaginateDataInterface } from '@Common/types';
 import { paginateData } from '@Common/paginate';
-import { calculateTotalPopulationByRegion } from '@Modules/region/helpers';
+import { calculateTotalPopulationByRegion } from '@Modules/regions/helpers';
 
 @Injectable()
 export class RegionService {
@@ -59,6 +59,57 @@ export class RegionService {
       status: HttpStatus.OK,
       message: 'Regions retrieved successfully',
       data: totalRegionsPopulations,
+    };
+  }
+
+  async getRegion(
+    query: QueryFilterParams,
+    region: string,
+  ): Promise<APIResponse<PaginateDataInterface>> {
+    const { page, limit } = query;
+
+    // Fetch region details
+    const { data, error } = await this.externalAPIService.getRegion(region);
+
+    if (!data && !error) {
+      throw new HttpException(
+        `Region  with name :${region} does not exist`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    if (!data || data.length === 0) {
+      throw new HttpException('No region data available', HttpStatus.NOT_FOUND);
+    }
+
+    if (error) {
+      throw new HttpException(
+        'Unable to retrieve region',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+
+    // return {
+    //   success: true,
+    //   status: HttpStatus.OK,
+    //   message: 'Region retrieved successfully',
+    //   data,
+    // };
+
+    // Paginate data
+    const paginatedData = paginateData(data, page, limit);
+
+    return this.createApiResponse(paginatedData);
+  }
+
+  private createApiResponse(
+    response: PaginateDataInterface,
+  ): APIResponse<PaginateDataInterface> {
+    return {
+      success: true,
+      status: HttpStatus.OK,
+      message: 'Regions retrieved successfully',
+      data: response,
     };
   }
 }

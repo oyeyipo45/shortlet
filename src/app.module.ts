@@ -1,4 +1,4 @@
-import { CountriesModule } from '@/modules/countries/countries.module';
+import { CountriesModule } from '@/Modules/countries/countries.module';
 import { ExternalAPIModule } from '@ExternalAPI/externalAPI.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -8,7 +8,7 @@ import { HttpExceptionFilter } from './common/http-exception.filter';
 import { Environment } from './common/types/env.enums';
 import { configValidator } from '@Config/env.validation';
 import { APP_FILTER } from '@nestjs/core';
-import { RegionModule } from '@Modules/region/region.module';
+import { RegionModule } from '@Modules/regions/region.module';
 
 @Module({
   imports: [
@@ -24,7 +24,7 @@ import { RegionModule } from '@Modules/region/region.module';
     CountriesModule,
     ExternalAPIModule,
     HealthModule,
-    RegionModule
+    RegionModule,
   ],
   controllers: [],
   providers: [

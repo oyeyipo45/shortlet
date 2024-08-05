@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { RegionController } from '@/modules/region/region.controller';
-import { RegionService } from '@/modules/region/region.service';
+import { RegionController } from '@Modules/regions/region.controller';
+import { RegionService } from '@Modules/regions/region.service';
 import { ExternalAPIModule } from '@ExternalAPI/externalAPI.module';
 import { CacheModule } from '@nestjs/cache-manager';
 

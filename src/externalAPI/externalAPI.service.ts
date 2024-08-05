@@ -4,13 +4,11 @@ import { API_PATH } from '@ExternalAPI/constants';
 import { QueryResponse } from '@Common/types';
 import { Country } from '@/modules/countries/types/country.type';
 import { Filter, QueryFilterParams } from '@Common/types/query-filter-params';
-import { RegionInterface } from '@Modules/region/types';
+import { RegionInterface } from '@Modules/regions/types';
 
 @Injectable()
 export class ExternalAPIService {
-  constructor(
-    private readonly httpService: HttpService,
-  ) {}
+  constructor(private readonly httpService: HttpService) {}
 
   async getCountries(
     params: QueryFilterParams,
@@ -43,7 +41,7 @@ export class ExternalAPIService {
 
     try {
       const { data } = await this.httpService.axiosRef.get<Country[]>(
-        `/name/${filter}`,
+        `/name/${filter.toLowerCase()}`,
       );
 
       return { data, error: null };
@@ -56,6 +54,18 @@ export class ExternalAPIService {
     try {
       const { data } = await this.httpService.axiosRef.get<RegionInterface[]>(
         `/all?fields=region,population`,
+      );
+
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
+  }
+
+  async getRegion(region: string): Promise<QueryResponse<Country[]>> {
+    try {
+      const { data } = await this.httpService.axiosRef.get<Country[]>(
+        `/region/${region.toLowerCase()}`,
       );
 
       return { data, error: null };

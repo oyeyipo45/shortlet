@@ -5,7 +5,7 @@ import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { PaginateDataInterface } from '@Common/types/paginate-type';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { RegionService } from '@Modules/region/region.service';
+import { RegionService } from '@Modules/regions/region.service';
 import { RegionInterface } from './types';
 
 @ApiTags('Regions')
@@ -26,5 +26,32 @@ export class RegionController {
   })
   async getRegions(): Promise<APIResponse<RegionInterface[]>> {
     return this.RegionService.getRegions();
+  }
+
+  @ApiOperation({ summary: 'Get single region' })
+  @Get('/api/regions/:region')
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    description: 'current page',
+    type: 'number',
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    description: 'Number of data per page',
+    type: 'number',
+  })
+  @ApiParam({
+    name: 'region',
+    required: true,
+    description: 'Region name',
+    type: 'string',
+  })
+  async getRegion(
+    @Query() query: QueryFilterParams,
+    @Param('region') region: string,
+  ): Promise<APIResponse<PaginateDataInterface>> {
+    return this.RegionService.getRegion(query, region);
   }
 }

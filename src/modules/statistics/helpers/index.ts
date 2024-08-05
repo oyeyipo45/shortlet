@@ -1,8 +1,8 @@
-import { RegionInterface } from '@Modules/regions/types';
+import { StatisticsInterface } from '@Modules/statistics/types';
 
 export const calculateTotalPopulationByRegion = (
-  data: RegionInterface[],
-): RegionInterface[] => {
+  data: StatisticsInterface[],
+): StatisticsInterface[] => {
   const regionTotals = data.reduce(
     (acc, curr) => {
       const { region, population } = curr;

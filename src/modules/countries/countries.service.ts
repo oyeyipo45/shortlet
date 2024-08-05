@@ -23,6 +23,7 @@ export class CountriesService {
     // Check cache
     const cachedCountries = await this.cacheManager.get<Country[]>('countries');
 
+    // Use cached response
     if (cachedCountries) {
       const paginatedData = paginateData(cachedCountries, page, limit);
       return this.createApiResponse(paginatedData);

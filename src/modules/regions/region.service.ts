@@ -8,6 +8,7 @@ import { RegionInterface } from '@Modules/regions/types';
 import { PaginateDataInterface } from '@Common/types';
 import { paginateData } from '@Common/paginate';
 import { calculateTotalPopulationByRegion } from '@Modules/regions/helpers';
+import { Country } from '@Modules/countries/types';
 
 @Injectable()
 export class RegionService {
@@ -68,6 +69,17 @@ export class RegionService {
   ): Promise<APIResponse<PaginateDataInterface>> {
     const { page, limit } = query;
 
+    // Check cache
+    const cachedRegion = await this.cacheManager.get<Country[]>(
+      `region-${region}`,
+    );
+
+    // Use cached response
+    if (cachedRegion) {
+      const paginatedData = paginateData(cachedRegion, page, limit);
+      return this.createApiResponse(paginatedData);
+    }
+
     // Fetch region details
     const { data, error } = await this.externalAPIService.getRegion(region);
 
@@ -89,12 +101,8 @@ export class RegionService {
       );
     }
 
-    // return {
-    //   success: true,
-    //   status: HttpStatus.OK,
-    //   message: 'Region retrieved successfully',
-    //   data,
-    // };
+    // Cache region data
+    await this.cacheManager.set(`region-${region}`, data, 3600);
 
     // Paginate data
     const paginatedData = paginateData(data, page, limit);

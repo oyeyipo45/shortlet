@@ -1,24 +1,19 @@
 import { HttpService } from '@nestjs/axios';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { API_PATH } from '@ExternalAPI/constants';
 import { QueryResponse } from '@Common/types';
-import { Country } from '@Countries/types/country.type';
-import {
-  CountryFilter,
-  GetCountriesParams,
-} from '@Countries/types/country-filter-params';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Cache } from 'cache-manager';
+import { Country } from '@/modules/countries/types/country.type';
+import { Filter, QueryFilterParams } from '@Common/types/query-filter-params';
+import { RegionInterface } from '@Modules/region/types';
 
 @Injectable()
 export class ExternalAPIService {
   constructor(
     private readonly httpService: HttpService,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async getCountries(
-    params: GetCountriesParams,
+    params: QueryFilterParams,
   ): Promise<QueryResponse<Country[]>> {
     const filterParams = [];
 
@@ -37,8 +32,19 @@ export class ExternalAPIService {
         `${API_PATH.ALL}/${filter}`,
       );
 
-      // Cache country data
-      await this.cacheManager.set('countries', data, 3600);
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
+  }
+
+  async getCountry(params: Filter): Promise<QueryResponse<Country[]>> {
+    const { filter } = params;
+
+    try {
+      const { data } = await this.httpService.axiosRef.get<Country[]>(
+        `/name/${filter}`,
+      );
 
       return { data, error: null };
     } catch (error) {
@@ -46,12 +52,10 @@ export class ExternalAPIService {
     }
   }
 
-  async getCountry(params: CountryFilter): Promise<QueryResponse<Country[]>> {
-    const { country } = params;
-
+  async getRegions(): Promise<QueryResponse<RegionInterface[]>> {
     try {
-      const { data } = await this.httpService.axiosRef.get<Country[]>(
-        `/name/${country}`,
+      const { data } = await this.httpService.axiosRef.get<RegionInterface[]>(
+        `/all?fields=region,population`,
       );
 
       return { data, error: null };

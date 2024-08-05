@@ -22,7 +22,16 @@ describe('CountriesController (e2e)', () => {
 
   it('It should return a list of countries (GET)', async () => {
     const response = await request(app.getHttpServer()).get(
-      '/countries?page=1&limit=10',
+      '/api/countries?page=1&limit=10',
+    );
+
+    expect(response.status).toBe(HttpStatus.OK);
+  });
+
+  it('It should return a selected country marching search parameter (GET)', async () => {
+    const country = 'nigeria';
+    const response = await request(app.getHttpServer()).get(
+      `/api/countries/${country}`,
     );
 
     expect(response.status).toBe(HttpStatus.OK);

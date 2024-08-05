@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CountriesController } from '@Countries/countries.controller';
-import { CountriesService } from '@Countries/countries.service';
+import { CountriesController } from '@/modules/countries/countries.controller';
+import { CountriesService } from '@/modules/countries/countries.service';
 import { HttpStatus } from '@nestjs/common';
-import { GetCountriesParams } from '@Countries/types';
+import { QueryFilterParams } from '@/modules/countries/types';
 
 describe('CountriesController', () => {
   let countriesController: CountriesController;
@@ -100,7 +100,7 @@ describe('CountriesController', () => {
         message: 'Countries retrieved successfully',
       };
 
-      const query: GetCountriesParams = {
+      const query: QueryFilterParams = {
         page: 1,
         limit: 10,
       };

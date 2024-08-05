@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@Common/*": ["src/common/*"],
-      "@Countries/*": ["src/countries/*"],
+      "@Modules/*": ["src/modules/*"],
       "@Config/*": ["src/config/*"],
       "@ExternalAPI/*": ["src/externalAPI/*"],
       "@Health/*": ["src/health/*"],

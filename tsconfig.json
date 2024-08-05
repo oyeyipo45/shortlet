@@ -23,6 +23,7 @@
       "@Config/*": ["src/config/*"],
       "@ExternalAPI/*": ["src/modules/externalAPI/*"],
       "@Health/*": ["src/modules/health/*"],
+      "@Languages/*": ["src/modules/languages/*"],
       "@Utils/*": ["src/utils/*"],
       "@Tests/*": ["e2e/*"],
       "@/*": ["src/*"],

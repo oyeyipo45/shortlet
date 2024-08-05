@@ -16,6 +16,7 @@ module.exports = {
     '^@Region/(.*)$': '<rootDir>/src/modules/regions/$1',
     '^@Modules/(.*)$': '<rootDir>/src/modules/$1',
     '^@Health/(.*)$': '<rootDir>/src/modules/health/$1',
+    '^@Languages/(.*)$': '<rootDir>/src/modules/languages/$1',
     '^@Utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@Tests/(.*)$': '<rootDir>/e2e/$1',
     '^@/(.*)$': '<rootDir>/src/$1',

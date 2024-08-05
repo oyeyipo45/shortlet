@@ -5,6 +5,7 @@ import { QueryResponse } from '@Common/types';
 import { Country } from '@/Modules/countries/types/country.type';
 import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { RegionInterface } from '@Modules/regions/types';
+import { LanguageInterface } from '@Modules/languages/types';
 
 @Injectable()
 export class ExternalAPIService {
@@ -61,10 +62,33 @@ export class ExternalAPIService {
   }
 
   async getRegion(region: string): Promise<QueryResponse<Country[]>> {
-    
     try {
       const { data } = await this.httpService.axiosRef.get<Country[]>(
         `/region/${region.toLowerCase()}`,
+      );
+
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
+  }
+
+  async getLanguages(): Promise<QueryResponse<LanguageInterface[]>> {
+    try {
+      const { data } = await this.httpService.axiosRef.get<LanguageInterface[]>(
+        `/all?fields=lang,population`,
+      );
+
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
+  }
+
+  async getLanguage(language: string): Promise<QueryResponse<Country[]>> {
+    try {
+      const { data } = await this.httpService.axiosRef.get<Country[]>(
+        `/lang/${language.toLowerCase()}`,
       );
 
       return { data, error: null };

@@ -5,31 +5,31 @@ import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { PaginateDataInterface } from '@Common/types/paginate-type';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { RegionService } from '@Modules/regions/region.service';
-import { RegionInterface } from '@Modules/regions/types';
+import { LanguageService } from '@Modules/languages/languages.service';
+import { LanguageInterface } from '@Modules/languages/types';
 
-@ApiTags('Regions')
+@ApiTags('Languages')
 @Controller({ version: '1' })
-export class RegionController {
+export class LanguageController {
   constructor(
-    private readonly RegionService: RegionService,
+    private readonly languageService: LanguageService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  @ApiOperation({ summary: 'Get regions' })
-  @Get('/api/regions')
+  @ApiOperation({ summary: 'Get Languages' })
+  @Get('/api/languages')
   @ApiQuery({
-    name: 'regions',
+    name: 'language',
     required: false,
-    description: 'Name of region',
+    description: 'Name of language',
     type: 'string',
   })
-  async getRegions(): Promise<APIResponse<RegionInterface[]>> {
-    return this.RegionService.getRegions();
+  async getLanguages(): Promise<APIResponse<LanguageInterface[]>> {
+    return this.languageService.getLanguages();
   }
 
-  @ApiOperation({ summary: 'Get single region' })
-  @Get('/api/regions/:region')
+  @ApiOperation({ summary: 'Get single language' })
+  @Get('/api/languages/:language')
   @ApiQuery({
     name: 'page',
     required: false,
@@ -43,15 +43,15 @@ export class RegionController {
     type: 'number',
   })
   @ApiParam({
-    name: 'region',
+    name: 'language',
     required: true,
-    description: 'Region name',
+    description: 'Language name',
     type: 'string',
   })
-  async getRegion(
+  async getLanguage(
     @Query() query: QueryFilterParams,
-    @Param('region') region: string,
+    @Param('language') language: string,
   ): Promise<APIResponse<PaginateDataInterface>> {
-    return this.RegionService.getRegion(query, region);
+    return this.languageService.getLanguage(query, language);
   }
 }

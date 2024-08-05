@@ -4,7 +4,7 @@ import * as request from 'supertest';
 import { AppModule } from '@/app.module';
 import { toBeOneOf } from 'jest-extended';
 
-describe('CountriesController (e2e)', () => {
+describe('RegionsController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(() => {
@@ -20,18 +20,18 @@ describe('CountriesController (e2e)', () => {
     await app.init();
   });
 
-  it('It should return a list of countries (GET)', async () => {
+  it('It should return a list regions and their populations (GET)', async () => {
     const response = await request(app.getHttpServer()).get(
-      '/api/countries?page=1&limit=10',
+      '/api/regions',
     );
 
     expect(response.status).toBe(HttpStatus.OK);
   });
 
-  it('It should return a selected country matching search parameter (GET)', async () => {
-    const country = 'nigeria';
+  it('It should return list of countries in a selected region matching search parameter (GET)', async () => {
+    const region = 'europe';
     const response = await request(app.getHttpServer()).get(
-      `/api/countries/${country}`,
+      `/api/regions/${region}`,
     );
 
     expect(response.status).toBe(HttpStatus.OK);

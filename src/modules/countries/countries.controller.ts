@@ -1,13 +1,12 @@
-import { Controller, Get, Inject, Param, Query, Version } from '@nestjs/common';
-import { CountriesService } from '@Countries/countries.service';
+import { Controller, Get, Inject, Param, Query } from '@nestjs/common';
+import { CountriesService } from '@/Modules/countries/countries.service';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation, ApiQuery, ApiParam } from '@nestjs/swagger';
-import { CountryFilter, GetCountriesParams } from '@Countries/types/country-filter-params';
+import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { PaginateDataInterface } from '@Common/types/paginate-type';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { Country } from '@Countries/types/country.type';
-
+import { Country } from '@/Modules/countries/types/country.type';
 
 @ApiTags('Countries')
 @Controller({ version: '1' })
@@ -44,7 +43,7 @@ export class CountriesController {
     type: 'number',
   })
   async getCountries(
-    @Query() query: GetCountriesParams,
+    @Query() query: QueryFilterParams,
   ): Promise<APIResponse<PaginateDataInterface | Country>> {
     return this.CountriesService.getCountries(query);
   }
@@ -58,9 +57,9 @@ export class CountriesController {
     type: 'string',
   })
   async getCountry(
-    @Param() params: CountryFilter
+    @Param('country') country: string,
   ): Promise<APIResponse<Country[]>> {
-    return this.CountriesService.getCountry(params);
+    return this.CountriesService.getCountry(country);
   }
 }
 

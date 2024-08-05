@@ -19,10 +19,10 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@Common/*": ["src/common/*"],
-      "@Countries/*": ["src/countries/*"],
+      "@Modules/*": ["src/modules/*"],
       "@Config/*": ["src/config/*"],
-      "@ExternalAPI/*": ["src/externalAPI/*"],
-      "@Health/*": ["src/health/*"],
+      "@ExternalAPI/*": ["src/modules/externalAPI/*"],
+      "@Health/*": ["src/modules/health/*"],
       "@Utils/*": ["src/utils/*"],
       "@Tests/*": ["e2e/*"],
       "@/*": ["src/*"],

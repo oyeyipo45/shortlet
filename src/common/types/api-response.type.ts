@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
-import { Country } from '@Countries/types';
+import { Country } from '@/Modules/countries/types';
 export interface APIResponse<T = undefined> {
   success: boolean;
   status: HttpStatus;
@@ -15,7 +15,6 @@ export interface APIResponse<T = undefined> {
 //   total: number;
 //   pages: number;
 // }
-
 
 // type CountryApiResponse = APIResponse<PaginateDataInterface<Country>>;
 // type SingleCountryApiResponse = APIResponse<Country>;

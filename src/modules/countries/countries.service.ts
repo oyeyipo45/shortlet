@@ -1,28 +1,29 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { APIResponse } from '@Common/types/api-response.type';
-import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
-import { CountryFilter, GetCountriesParams } from '@Countries/types/country-filter-params';
+import { ExternalAPIService } from '@Modules/externalAPI/externalAPI.service';
+import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { paginateData } from '@Common/paginate';
 import { PaginateDataInterface } from '@Common/types/paginate-type';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { Country } from '@Countries/types';
+import { Country } from '@/Modules/countries/types';
 
 @Injectable()
 export class CountriesService {
   constructor(
     private readonly externalAPIService: ExternalAPIService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) { }
-  
+  ) {}
+
   async getCountries(
-    params: GetCountriesParams,
+    params: QueryFilterParams,
   ): Promise<APIResponse<PaginateDataInterface | Country>> {
     const { page, limit } = params;
 
     // Check cache
     const cachedCountries = await this.cacheManager.get<Country[]>('countries');
 
+    // Use cached response
     if (cachedCountries) {
       const paginatedData = paginateData(cachedCountries, page, limit);
       return this.createApiResponse(paginatedData);
@@ -45,17 +46,18 @@ export class CountriesService {
       );
     }
 
+    // Cache country data
+    await this.cacheManager.set('countries', data, 3600);
+
     // Paginate data
     const paginatedData = paginateData(data, page, limit);
 
     return this.createApiResponse(paginatedData);
   }
 
-  async getCountry(
-    params: CountryFilter,
-  ): Promise<APIResponse<Country[]>> {
+  async getCountry(country: string): Promise<APIResponse<Country[]>> {
     // Fetch country
-    const { data, error } = await this.externalAPIService.getCountry(params);
+    const { data, error } = await this.externalAPIService.getCountry(country);
 
     if (error) {
       throw new HttpException(

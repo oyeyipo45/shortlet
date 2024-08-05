@@ -4,3 +4,7 @@ export interface GetCountriesParams {
   page: number;
   limit: number;
 }
+
+export interface CountryFilter {
+  country: string;
+}

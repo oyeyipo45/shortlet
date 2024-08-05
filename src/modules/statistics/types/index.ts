@@ -1,4 +1,6 @@
 export interface StatisticsInterface {
-  region: string;
-  population: number;
+  totalCountries: number;
+  largestCountryArea: string;
+  smallestPopulation: string;
+  mostWidelySpokenLanguage: string;
 }

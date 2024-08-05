@@ -4,6 +4,7 @@ import { ExternalAPIService } from '@Modules/externalAPI/externalAPI.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { StatisticsInterface } from '@Modules/statistics/types';
+import { calculateTotalStastics } from '@Modules/statistics/helpers';
 
 @Injectable()
 export class StatisticsService {
@@ -12,7 +13,7 @@ export class StatisticsService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  async getStatistics(): Promise<APIResponse<StatisticsInterface []>> {
+  async getStatistics(): Promise<APIResponse<StatisticsInterface>> {
     // Fetch statistics
     const { data, error } = await this.externalAPIService.getStatistics();
 
@@ -44,7 +45,7 @@ export class StatisticsService {
       );
     }
 
-    // const totalRegionsPopulations = calculateTotalPopulationByRegion(data);
+    // const totalRegionsPopulations = calculateTotalStastics(data);
 
     // // Cache regions
     // await this.cacheManager.set(

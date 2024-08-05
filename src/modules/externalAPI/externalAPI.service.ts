@@ -73,10 +73,9 @@ export class ExternalAPIService {
     }
   }
 
-  async getStatistics(): Promise<QueryResponse<StatisticsInterface[]>> {
+  async getStatistics(): Promise<QueryResponse<StatisticsInterface>> {
     try {
-      const { data } =
-        await this.httpService.axiosRef.get<StatisticsInterface[]>(`/region`);
+      const { data } = await this.httpService.axiosRef.get<StatisticsInterface>(`/all`);
 
       return { data, error: null };
     } catch (error) {

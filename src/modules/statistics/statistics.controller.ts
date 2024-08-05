@@ -16,7 +16,7 @@ export class StatisticsController {
 
   @ApiOperation({ summary: 'Get statistics' })
   @Get('/api/statistics')
-  async getStatistics(): Promise<APIResponse<StatisticsInterface[]>> {
+  async getStatistics(): Promise<APIResponse<StatisticsInterface>> {
     return this.statisticsService.getStatistics();
   }
 }

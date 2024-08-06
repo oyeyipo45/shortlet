@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { StatisticsController } from '@Modules/statistics/statistics.controller';
-import { StatisticsService } from '@Modules/statistics/statistics.service';
-import { ExternalAPIModule } from '@Modules/externalAPI/externalAPI.module';
+import { StatisticsController } from '@Statistics/statistics.controller';
+import { StatisticsService } from '@Statistics/statistics.service';
+import { ExternalAPIModule } from '@ExternalAPI/externalAPI.module';
 import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({

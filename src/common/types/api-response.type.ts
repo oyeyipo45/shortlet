@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
-import { Country } from '@/Modules/countries/types';
+import { Country } from '@/countries/types';
 export interface APIResponse<T = undefined> {
   success: boolean;
   status: HttpStatus;

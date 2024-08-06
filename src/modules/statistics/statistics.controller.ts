@@ -3,8 +3,8 @@ import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { StatisticsService } from '@Modules/statistics/statistics.service';
-import { StatisticsInterface } from '@Modules/statistics/types';
+import { StatisticsService } from '@Statistics/statistics.service';
+import { StatisticsInterface } from '@Statistics/types';
 
 @ApiTags('Statistics')
 @Controller({ version: '1' })

@@ -1,13 +1,10 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { APIResponse } from '@Common/types/api-response.type';
-import { ExternalAPIService } from '@Modules/externalAPI/externalAPI.service';
+import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { StatisticsInterface } from '@Modules/statistics/types';
-import {
-  findLargestArea,
-  findSmallestPopulation,
-} from '@Modules/statistics/helpers';
+import { StatisticsInterface } from '@Statistics/types';
+import { findLargestArea, findSmallestPopulation } from '@Statistics/helpers';
 
 @Injectable()
 export class StatisticsService {

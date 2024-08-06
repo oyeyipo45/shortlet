@@ -5,8 +5,8 @@ import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { PaginateDataInterface } from '@Common/types/paginate-type';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { RegionService } from '@Modules/regions/region.service';
-import { RegionInterface } from './types';
+import { RegionService } from '@/modules/regions/region.service';
+import { RegionInterface } from '@/modules/regions/types';
 
 @ApiTags('Regions')
 @Controller({ version: '1' })
@@ -18,12 +18,6 @@ export class RegionController {
 
   @ApiOperation({ summary: 'Get regions' })
   @Get('/api/regions')
-  @ApiQuery({
-    name: 'regions',
-    required: false,
-    description: 'Name of region',
-    type: 'string',
-  })
   async getRegions(): Promise<APIResponse<RegionInterface[]>> {
     return this.RegionService.getRegions();
   }

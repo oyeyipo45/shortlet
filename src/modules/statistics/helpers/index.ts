@@ -1,5 +1,4 @@
-import { Country } from '@/Modules/countries/types';
-
+import { Country } from '@/countries/types';
 
 export const findLargestArea = (data: Country[]): string => {
   const largestCountry = data.reduce((largest, current) => {
@@ -9,9 +8,8 @@ export const findLargestArea = (data: Country[]): string => {
   return largestCountry?.name?.common;
 };
 
-
 export const findSmallestPopulation = (data: Country[]): string => {
   return data.reduce((smallest, current) =>
     current.population < smallest.population ? current : smallest,
   )?.name?.common;
-}
+};

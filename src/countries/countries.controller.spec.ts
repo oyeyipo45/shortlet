@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CountriesController } from '@/Modules/countries/countries.controller';
-import { CountriesService } from '@/Modules/countries/countries.service';
+import { CountriesController } from '@/countries/countries.controller';
+import { CountriesService } from '@/countries/countries.service';
 import { HttpStatus } from '@nestjs/common';
-import { QueryFilterParams } from '@/Modules/countries/types';
+import { QueryFilterParams } from '@/countries/types';
 
 describe('CountriesController', () => {
   let countriesController: CountriesController;

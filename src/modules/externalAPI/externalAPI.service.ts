@@ -27,7 +27,7 @@ export class ExternalAPIService {
 
     try {
       const { data } = await this.httpService.axiosRef.get<Country[]>(
-        `${API_PATH.ALL}/${filter}`,
+        `${API_PATH.ALL}${filter}`,
       );
 
       return { data, error: null };
@@ -60,19 +60,11 @@ export class ExternalAPIService {
     }
   }
 
-  async getLanguages(): Promise<QueryResponse<Country[]>> {
+  async getUnpaginatedCountries(): Promise<QueryResponse<Country[]>> {
     try {
-      const { data } = await this.httpService.axiosRef.get<Country[]>(`/all`);
-
-      return { data, error: null };
-    } catch (error) {
-      return { data: null, error };
-    }
-  }
-
-  async getStatistics(): Promise<QueryResponse<Country[]>> {
-    try {
-      const { data } = await this.httpService.axiosRef.get<Country[]>(`/all`);
+      const { data } = await this.httpService.axiosRef.get<Country[]>(
+        `${API_PATH.ALL}`,
+      );
 
       return { data, error: null };
     } catch (error) {

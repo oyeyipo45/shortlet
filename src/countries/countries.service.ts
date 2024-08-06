@@ -27,7 +27,7 @@ export class CountriesService {
     if (cachedCountries) {
       const paginatedData = paginateData(cachedCountries, page, limit);
       return this.createApiResponse(paginatedData);
-    }
+    } 
 
     // Fetch countries
     const { data, error } = await this.externalAPIService.getCountries(params);

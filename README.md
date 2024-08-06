@@ -4,7 +4,7 @@
 <br>
 
 <p align="center">
-    <img src="" alt="Shortlet-test Backend System Design" />
+    <img src="./docs/arch.png" alt="Shortlet-test Backend System Design" />
 </p>
 
 

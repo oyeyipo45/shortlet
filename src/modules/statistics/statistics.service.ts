@@ -4,7 +4,12 @@ import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { StatisticsInterface } from '@Statistics/types';
-import { findLargestArea, findSmallestPopulation } from '@Statistics/helpers';
+import {
+  aggregateStatistics,
+  findLargestArea,
+  findSmallestPopulation,
+} from '@Statistics/helpers';
+import { Country } from '@Countries/types';
 
 @Injectable()
 export class StatisticsService {
@@ -24,45 +29,48 @@ export class StatisticsService {
         message: 'Statistics retrieved successfully',
         data: cachedStatistics,
       };
-    } else {
-      // Fetch statistics
-      const { data, error } = await this.externalAPIService.getStatistics();
+    }
 
-      if (error) {
-        throw new HttpException(
-          'Unable to retrieve statistics',
-          HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }
+    // Check cache for countries
+    const cachedCountries = await this.cacheManager.get<Country[]>('countries');
 
-      if (!data) {
-        throw new HttpException(
-          'No statistics data available',
-          HttpStatus.NOT_FOUND,
-        );
-      }
-
-      const totalCountries = data?.length;
-      const largestCountryArea = findLargestArea(data);
-      const smallestPopulation = findSmallestPopulation(data);
-      const mostWidelySpokenLanguage = null;
-
-      const calculatedStatistics = {
-        totalCountries,
-        largestCountryArea,
-        smallestPopulation,
-        mostWidelySpokenLanguage,
-      };
-
+    // Use cached response
+    if (cachedCountries) {
+      // Aggregate response
+      const calculatedStatistics = aggregateStatistics(cachedCountries);
       // Cache statistics
       await this.cacheManager.set('statistics', calculatedStatistics, 3600);
-
-      return {
-        success: true,
-        status: HttpStatus.OK,
-        message: 'Statistics retrieved successfully',
-        data: calculatedStatistics,
-      };
     }
+
+    // Fetch statistics
+    const { data, error } =
+      await this.externalAPIService.getUnpaginatedCountries();
+
+    if (error) {
+      throw new HttpException(
+        'Unable to retrieve statistics',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+
+    if (!data) {
+      throw new HttpException(
+        'No statistics data available',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    // Aggregate response
+    const calculatedStatistics = aggregateStatistics(data);
+
+    // Cache statistics
+    await this.cacheManager.set('statistics', calculatedStatistics, 3600);
+
+    return {
+      success: true,
+      status: HttpStatus.OK,
+      message: 'Statistics retrieved successfully',
+      data: calculatedStatistics,
+    };
   }
 }

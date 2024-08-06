@@ -11,9 +11,16 @@ import { APP_FILTER } from '@nestjs/core';
 import { RegionModule } from '@/modules/regions/region.module';
 import { LanguageModule } from '@Languages/languages.module';
 import { StatisticsModule } from '@Statistics/statistics.module';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'swagger-static'),
+      serveRoot:
+        configuration().nodeENV === Environment.PROD ? '/' : '/api-docs',
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       expandVariables: true,

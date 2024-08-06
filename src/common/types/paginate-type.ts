@@ -1,4 +1,4 @@
-import { Country } from '@/Modules/countries/types/country.type';
+import { Country } from '@/countries/types/country.type';
 
 export interface PaginateDataInterface {
   results: Country[];

@@ -1,11 +1,10 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { API_PATH } from '@Modules/externalAPI/constants';
+import { API_PATH } from '@ExternalAPI/constants';
 import { QueryResponse } from '@Common/types';
-import { Country } from '@/Modules/countries/types/country.type';
+import { Country } from '@/countries/types/country.type';
 import { QueryFilterParams } from '@Common/types/query-filter-params';
-import { RegionInterface } from '@Modules/regions/types';
-import { LanguageInterface } from '@Modules/languages/types';
+import { RegionInterface } from '@/modules/regions/types';
 
 @Injectable()
 export class ExternalAPIService {
@@ -73,11 +72,9 @@ export class ExternalAPIService {
     }
   }
 
-  async getLanguages(): Promise<QueryResponse<LanguageInterface[]>> {
+  async getLanguages(): Promise<QueryResponse<Country[]>> {
     try {
-      const { data } = await this.httpService.axiosRef.get<LanguageInterface[]>(
-        `/all?fields=lang,population`,
-      );
+      const { data } = await this.httpService.axiosRef.get<Country[]>(`/all`);
 
       return { data, error: null };
     } catch (error) {
@@ -85,11 +82,9 @@ export class ExternalAPIService {
     }
   }
 
-  async getLanguage(language: string): Promise<QueryResponse<Country[]>> {
+  async getStatistics(): Promise<QueryResponse<Country[]>> {
     try {
-      const { data } = await this.httpService.axiosRef.get<Country[]>(
-        `/lang/${language.toLowerCase()}`,
-      );
+      const { data } = await this.httpService.axiosRef.get<Country[]>(`/all`);
 
       return { data, error: null };
     } catch (error) {

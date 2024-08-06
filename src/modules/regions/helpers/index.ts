@@ -1,4 +1,4 @@
-import { RegionInterface } from '../types';
+import { RegionInterface } from '@/modules/regions/types';
 
 export const calculateTotalPopulationByRegion = (
   data: RegionInterface[],

@@ -1,9 +1,8 @@
-import { CONSTANTS } from '@Common/constants';
 import { Config } from '@Common/types/config.type';
 import { HttpModule, HttpModuleOptions } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ExternalAPIService } from '@Modules/externalAPI/externalAPI.service';
+import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
 import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({

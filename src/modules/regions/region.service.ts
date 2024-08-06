@@ -1,14 +1,14 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { APIResponse } from '@Common/types/api-response.type';
-import { ExternalAPIService } from '@Modules/externalAPI/externalAPI.service';
+import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
 import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { RegionInterface } from '@Modules/regions/types';
+import { RegionInterface } from '@/modules/regions/types';
 import { PaginateDataInterface } from '@Common/types';
 import { paginateData } from '@Common/paginate';
-import { calculateTotalPopulationByRegion } from '@Modules/regions/helpers';
-import { Country } from '@Modules/countries/types';
+import { calculateTotalPopulationByRegion } from '@/modules/regions/helpers';
+import { Country } from '@/countries/types';
 
 @Injectable()
 export class RegionService {

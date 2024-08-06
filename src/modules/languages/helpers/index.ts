@@ -1,17 +1,26 @@
-// export const calculateTotalPopulationByRegion = (
-//   data: RegionInterface[],
-// ): RegionInterface[] => {
-//   const regionTotals = data.reduce(
-//     (acc, curr) => {
-//       const { region, population } = curr;
-//       acc[region] = (acc[region] || 0) + population;
-//       return acc;
-//     },
-//     {} as Record<string, number>,
-//   );
+import { Country } from '@/countries/types';
+import { Language } from '@/Modules/languages/types';
 
-//   return Object.entries(regionTotals).map(([region, population]) => ({
-//     region,
-//     population,
-//   }));
-// };
+export const GetLanguagesAndSpeakers = (data: Country[]): Language[] => {
+  const languageCounts: Record<string, Language> = {};
+
+  data.forEach((country) => {
+    const { languages } = country;
+    Object.entries(languages).forEach(([code, name]) => {
+      console.log(code, name);
+      console.log(languages[code], 'languages[code]');
+      console.log(languageCounts[code], 'languageCounts[code]');
+
+      languageCounts[code] = languages[code] || {
+        code,
+        name,
+        speakers: 0,
+        countries: [],
+      };
+      languageCounts[code].speakers += country.population;
+      languageCounts[code].countries.push(country.cca2);
+    });
+  });
+
+  return Object.values(languageCounts);
+};

@@ -400,7 +400,7 @@
     },
     "/v1/api/regions": {
       "get": {
-        "operationId": "RegionController_getRegions",
+        "operationId": "RegionsController_getRegions",
         "summary": "Get regions",
         "parameters": [],
         "responses": {

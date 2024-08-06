@@ -16,11 +16,11 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'swagger-static'),
-      serveRoot:
-        configuration().nodeENV === Environment.PROD ? '/' : '/api-docs',
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', 'swagger-static'),
+    //   serveRoot:
+    //     configuration().nodeENV === Environment.PROD ? '/' : '/api-docs',
+    // }),
     ConfigModule.forRoot({
       isGlobal: true,
       expandVariables: true,

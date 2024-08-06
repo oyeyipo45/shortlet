@@ -4,14 +4,35 @@
 <br>
 
 <p align="center">
-    <img src="" alt="Shortlet-test Backend System Design" />
+    <img src="./docs/arch.png" alt="Shortlet-test Backend System Design" />
 </p>
 
 
 <br><br>
 
+# Documentation
+  * Architecture - [Go to architecture documentation](./docs/architecture.md)
+
+  * <p>Repository - <a target="_blank" href="https://github.com/oyeyipo45/temp-lets">SHORTLET BACKEND REPOSITORY </a></p>
+  * <p>Postman documentation - <a target="_blank" href="http://localhost:8850/api-docs">POSTMAN API DOCUMENTATION </a></p>
+  * <p>Local Swagger documentation - <a target="_blank" href="http://localhost:8850/api-docs">LOCAL API DOCUMENTATION </a></p>
+    *  The application should be running before testing the local api documentation <br><br>
+
+
+
+
+# Quick Local Setup Guide
 * To run the shortlet backend locally, follow the steps below:
 
+* Clone repository
+  ```
+  git clone --depth 1 https://github.com/oyeyipo45/temp-lets
+  ```
+
+* Go to folder
+  ```
+  cd temp-lets/
+  ```
 
 * Install the project dependencies.
   ```
@@ -22,19 +43,44 @@
   ```
   NODE_ENV="local"
   APP_PORT=8850
+  EXTERNAL_COUNTRIES_SERVICES_URL="https://restcountries.com/v3.1"
   ```
-
 
 * Start the application in development mode.
   ```
   npm run start:dev
   ```
 
-* To run tests in development mode.
+* Access application on local host and check external api health
+  ```
+  http://localhost:8850/v1/api/health/external-api-health
+  ```
+
+* Local API documentation
+  ```
+  http://localhost:8850/api-docs
+  ```
+
+* To run e2e tests in development mode.
   ```
   npm run test:e2e
   ```
 
-* Find API documentation below.
-  * <p>Local - <a href="http://localhost:8850/api-docs">SHORTLET API DOCUMENTATION </a></p>
-  * <p>Deployed - <a href="http://localhost:8850/api-docs">SHORTLET API DOCUMENTATION </a></p>
+* To run unit tests (controllers) in development mode.
+  ```
+  npm run test
+  ```
+
+# Implementaion approach
+Architecture - [Go to architecture documentation](./docs/architecture.md)
+
+# Challenges
+* Caching and deciding time frame to invalidate cache
+* To run unit tests (controllers) in development mode
+
+# Features include
+  * E2E and unit tests.
+
+# Potential Improvements
+* Logging using datadog
+* Using redis for caching instead of Nestjs default cache manager

@@ -5,6 +5,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { RegionInterface } from '@/modules/regions/types';
 import { calculateTotalPopulationByRegion } from '@/modules/regions/helpers';
+
 @Injectable()
 export class RegionService {
   constructor(
@@ -13,14 +14,12 @@ export class RegionService {
   ) {}
 
   async getRegions(): Promise<APIResponse<RegionInterface[]>> {
-    // Fetch regions
-    const { data, error } = await this.externalAPIService.getRegions();
-
     // Check cache
     const cachedRegions = await this.cacheManager.get<RegionInterface[]>(
       'totalRegionsPopulations',
     );
 
+    // Send cached results
     if (cachedRegions) {
       return {
         success: true,
@@ -29,6 +28,9 @@ export class RegionService {
         data: cachedRegions,
       };
     }
+
+    // Fetch regions
+    const { data, error } = await this.externalAPIService.getRegions();
 
     if (error) {
       throw new HttpException(

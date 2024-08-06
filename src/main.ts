@@ -38,14 +38,7 @@ async function bootstrap() {
   // Compression - Reduce Response Size
   app.use(compression());
 
-
-
-  
-
-  // Listen to serve
-  await app.listen(configuration().appPort);
-
-    // Swagger OpenAPI
+  // Swagger OpenAPI
   if (configService.get('NODE_ENV') !== Environment.PROD) {
     const config = new DocumentBuilder()
       .setTitle('Shortlet API')
@@ -82,5 +75,8 @@ async function bootstrap() {
       );
     }
   }
+
+  // Listen to serve
+  await app.listen(configuration().appPort);
 }
 bootstrap();

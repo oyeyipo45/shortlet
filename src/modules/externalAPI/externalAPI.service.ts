@@ -73,9 +73,9 @@ export class ExternalAPIService {
     }
   }
 
-  async getStatistics(): Promise<QueryResponse<StatisticsInterface>> {
+  async getStatistics(): Promise<QueryResponse<Country[]>> {
     try {
-      const { data } = await this.httpService.axiosRef.get<StatisticsInterface>(`/all`);
+      const { data } = await this.httpService.axiosRef.get<Country[]>(`/all`);
 
       return { data, error: null };
     } catch (error) {

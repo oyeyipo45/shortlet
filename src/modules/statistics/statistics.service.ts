@@ -4,7 +4,11 @@ import { ExternalAPIService } from '@Modules/externalAPI/externalAPI.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { StatisticsInterface } from '@Modules/statistics/types';
-import { calculateTotalStastics } from '@Modules/statistics/helpers';
+import {
+  calculateTotalStastics,
+  findLargestArea,
+  findSmallestPopulation,
+} from '@Modules/statistics/helpers';
 
 @Injectable()
 export class StatisticsService {
@@ -16,6 +20,18 @@ export class StatisticsService {
   async getStatistics(): Promise<APIResponse<StatisticsInterface>> {
     // Fetch statistics
     const { data, error } = await this.externalAPIService.getStatistics();
+
+    const totalCountries = data?.length;
+    const largestCountryArea = findLargestArea(data);
+    const smallestPopulation = findSmallestPopulation(data);
+    const mostWidelySpokenLanguage = null;
+
+    const calculatedStatistics = {
+      totalCountries,
+      largestCountryArea,
+      smallestPopulation,
+      mostWidelySpokenLanguage,
+    };
 
     // // Check cache
     // const cachedStatistics = await this.cacheManager.get<StatisticsInterface[]>(
@@ -31,6 +47,9 @@ export class StatisticsService {
     //   };
     // }
 
+    // Cache statistics
+    await this.cacheManager.set('statistics', calculatedStatistics, 3600);
+
     if (error) {
       throw new HttpException(
         'Unable to retrieve statistics',
@@ -45,20 +64,11 @@ export class StatisticsService {
       );
     }
 
-    // const totalRegionsPopulations = calculateTotalStastics(data);
-
-    // // Cache regions
-    // await this.cacheManager.set(
-    //   'totalRegionsPopulations',
-    //   totalRegionsPopulations,
-    //   3600,
-    // );
-
     return {
       success: true,
       status: HttpStatus.OK,
       message: 'Statistics retrieved successfully',
-      data,
+      data: calculatedStatistics,
     };
   }
 }

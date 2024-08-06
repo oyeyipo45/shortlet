@@ -5,7 +5,6 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { StatisticsInterface } from '@Modules/statistics/types';
 import {
-  calculateTotalStastics,
   findLargestArea,
   findSmallestPopulation,
 } from '@Modules/statistics/helpers';
@@ -16,59 +15,57 @@ export class StatisticsService {
     private readonly externalAPIService: ExternalAPIService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
-
   async getStatistics(): Promise<APIResponse<StatisticsInterface>> {
-    // Fetch statistics
-    const { data, error } = await this.externalAPIService.getStatistics();
+    // Check cache
+    const cachedStatistics =
+      await this.cacheManager.get<StatisticsInterface>('statistics');
 
-    const totalCountries = data?.length;
-    const largestCountryArea = findLargestArea(data);
-    const smallestPopulation = findSmallestPopulation(data);
-    const mostWidelySpokenLanguage = null;
+    if (cachedStatistics) {
+      return {
+        success: true,
+        status: HttpStatus.OK,
+        message: 'Statistics retrieved successfully',
+        data: cachedStatistics,
+      };
+    } else {
+      // Fetch statistics
+      const { data, error } = await this.externalAPIService.getStatistics();
 
-    const calculatedStatistics = {
-      totalCountries,
-      largestCountryArea,
-      smallestPopulation,
-      mostWidelySpokenLanguage,
-    };
+      if (error) {
+        throw new HttpException(
+          'Unable to retrieve statistics',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
 
-    // // Check cache
-    // const cachedStatistics = await this.cacheManager.get<StatisticsInterface[]>(
-    //   'totalRegionsPopulations',
-    // );
+      if (!data) {
+        throw new HttpException(
+          'No statistics data available',
+          HttpStatus.NOT_FOUND,
+        );
+      }
 
-    // if (cachedStatistics) {
-    //   return {
-    //     success: true,
-    //     status: HttpStatus.OK,
-    //     message: 'Regions retrieved successfully',
-    //     data: cachedStatistics,
-    //   };
-    // }
+      const totalCountries = data?.length;
+      const largestCountryArea = findLargestArea(data);
+      const smallestPopulation = findSmallestPopulation(data);
+      const mostWidelySpokenLanguage = null;
 
-    // Cache statistics
-    await this.cacheManager.set('statistics', calculatedStatistics, 3600);
+      const calculatedStatistics = {
+        totalCountries,
+        largestCountryArea,
+        smallestPopulation,
+        mostWidelySpokenLanguage,
+      };
 
-    if (error) {
-      throw new HttpException(
-        'Unable to retrieve statistics',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      // Cache statistics
+      await this.cacheManager.set('statistics', calculatedStatistics, 3600);
+
+      return {
+        success: true,
+        status: HttpStatus.OK,
+        message: 'Statistics retrieved successfully',
+        data: calculatedStatistics,
+      };
     }
-
-    if (!data) {
-      throw new HttpException(
-        'No statistics data available',
-        HttpStatus.NOT_FOUND,
-      );
-    }
-
-    return {
-      success: true,
-      status: HttpStatus.OK,
-      message: 'Statistics retrieved successfully',
-      data: calculatedStatistics,
-    };
   }
 }

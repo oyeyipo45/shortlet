@@ -7,12 +7,13 @@ import { HealthModule } from '@Health/health.module';
 import { HttpExceptionFilter } from './common/http-exception.filter';
 import { Environment } from './common/types/env.enums';
 import { configValidator } from '@Config/env.validation';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { RegionModule } from '@/modules/regions/region.module';
 import { LanguageModule } from '@Languages/languages.module';
 import { StatisticsModule } from '@Statistics/statistics.module';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { LoggerInterceptor } from '@Common/logger.interceptor';
 
 @Module({
   imports: [
@@ -42,6 +43,10 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggerInterceptor,
     },
   ],
 })

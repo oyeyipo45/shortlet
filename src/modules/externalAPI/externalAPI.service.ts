@@ -1,10 +1,11 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { API_PATH } from '@ExternalAPI/constants';
 import { QueryResponse } from '@Common/types';
 import { Country } from '@/countries/types/country.type';
 import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { RegionInterface } from '@/modules/regions/types';
+import { AxiosError } from '@nestjs/terminus/dist/errors/axios.error';
 
 @Injectable()
 export class ExternalAPIService {
@@ -32,6 +33,7 @@ export class ExternalAPIService {
 
       return { data, error: null };
     } catch (error) {
+      this._coreExceptionLogger(error);
       return { data: null, error };
     }
   }
@@ -44,6 +46,7 @@ export class ExternalAPIService {
 
       return { data, error: null };
     } catch (error) {
+      this._coreExceptionLogger(error);
       return { data: null, error };
     }
   }
@@ -56,6 +59,7 @@ export class ExternalAPIService {
 
       return { data, error: null };
     } catch (error) {
+      this._coreExceptionLogger(error);
       return { data: null, error };
     }
   }
@@ -68,7 +72,20 @@ export class ExternalAPIService {
 
       return { data, error: null };
     } catch (error) {
+      this._coreExceptionLogger(error);
       return { data: null, error };
     }
+  }
+
+  /**** EXTERNAL API LOGGER ****/
+  private _coreExceptionLogger(error: unknown): void {
+    Logger.error(
+      (<Error | AxiosError>error).message,
+      JSON.stringify({
+        response: (<AxiosError>error)?.response?.data,
+        verbose: <Error | AxiosError>error,
+      }),
+      'CoreException',
+    );
   }
 }

@@ -413,49 +413,6 @@
         ]
       }
     },
-    "/v1/api/regions/{region}": {
-      "get": {
-        "operationId": "RegionController_getRegion",
-        "summary": "Get single region",
-        "parameters": [
-          {
-            "name": "region",
-            "required": true,
-            "in": "path",
-            "description": "Region name",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Number of data per page",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "description": "current page",
-            "schema": {
-              "type": "number"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "Regions"
-        ]
-      }
-    },
     "/v1/api/languages": {
       "get": {
         "operationId": "LanguagesController_getLanguages",

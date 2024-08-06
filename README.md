@@ -71,13 +71,12 @@
   npm run test
   ```
 
-
 # Implementaion approach
 Architecture - [Go to architecture documentation](./docs/architecture.md)
 
 # Challenges
 * Caching and deciding time frame to invalidate cache
-* To run unit tests (controllers) in development mode.
+* To run unit tests (controllers) in development mode
 
 # Features include
   * E2E and unit tests.

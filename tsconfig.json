@@ -21,6 +21,7 @@
       "@Common/*": ["src/common/*"],
       "@Modules/*": ["src/modules/*"],
       "@Config/*": ["src/config/*"],
+      "@Statistics/*": ["src/modules/statistics/*"],
       "@ExternalAPI/*": ["src/modules/externalAPI/*"],
       "@Health/*": ["src/modules/health/*"],
       "@Utils/*": ["src/utils/*"],

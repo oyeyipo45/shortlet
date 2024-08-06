@@ -51,19 +51,7 @@ export class ExternalAPIService {
   async getRegions(): Promise<QueryResponse<RegionInterface[]>> {
     try {
       const { data } = await this.httpService.axiosRef.get<RegionInterface[]>(
-        `/all?fields=region,population`,
-      );
-
-      return { data, error: null };
-    } catch (error) {
-      return { data: null, error };
-    }
-  }
-
-  async getRegion(region: string): Promise<QueryResponse<Country[]>> {
-    try {
-      const { data } = await this.httpService.axiosRef.get<Country[]>(
-        `/region/${region.toLowerCase()}`,
+        `/all?fields=region,population,name`,
       );
 
       return { data, error: null };

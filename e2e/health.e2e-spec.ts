@@ -21,7 +21,7 @@ describe('HealthController (e2e)', () => {
 
   it('Test application health (GET)', async () => {
     const response = await request(app.getHttpServer()).get(
-      '/health/application',
+      '/api/health/application',
     );
 
     expect(response.status).toBe(200);
@@ -43,7 +43,7 @@ describe('HealthController (e2e)', () => {
 
   it('Test external API health (GET)', async () => {
     const response = await request(app.getHttpServer()).get(
-      '/health/external-api-health',
+      '/api/health/external-api-health',
     );
 
     expect(response.status).toBe(200);

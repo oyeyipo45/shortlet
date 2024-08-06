@@ -1,19 +1,26 @@
-import { RegionInterface } from '@/modules/regions/types';
+import { Country } from '@Countries/types';
 
-export const calculateTotalPopulationByRegion = (
-  data: RegionInterface[],
-): RegionInterface[] => {
-  const regionTotals = data.reduce(
-    (acc, curr) => {
-      const { region, population } = curr;
-      acc[region] = (acc[region] || 0) + population;
+export const calculateTotalPopulationByRegion = (countries: Partial<Country>[]) => {
+  const regionData = countries.reduce(
+    (acc, country) => {
+      const { region, population } = country;
+      const existingRegion = acc.find((r) => r.region === region);
+
+      if (existingRegion) {
+        existingRegion.population += population;
+        existingRegion.countries.push(country.name.common);
+      } else {
+        acc.push({
+          region,
+          population,
+          countries: [country.name.common],
+        });
+      }
+
       return acc;
     },
-    {} as Record<string, number>,
+    [] as { region: string; population: number; countries: string[] }[],
   );
 
-  return Object.entries(regionTotals).map(([region, population]) => ({
-    region,
-    population,
-  }));
+  return regionData;
 };

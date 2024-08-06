@@ -9,7 +9,7 @@ import { Environment } from './common/types/env.enums';
 import { configValidator } from '@Config/env.validation';
 import { APP_FILTER } from '@nestjs/core';
 import { RegionModule } from '@Modules/regions/region.module';
-import { StatisticModule } from '@Modules/statistics/statistics.module';
+import { StatisticsModule } from '@Modules/statistics/statistics.module';
 
 @Module({
   imports: [
@@ -26,7 +26,7 @@ import { StatisticModule } from '@Modules/statistics/statistics.module';
     ExternalAPIModule,
     HealthModule,
     RegionModule,
-    StatisticModule,
+    StatisticsModule,
   ],
   controllers: [],
   providers: [

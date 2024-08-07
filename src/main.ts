@@ -77,6 +77,6 @@ async function bootstrap() {
   }
 
   // Listen to serve
-  await app.listen(configuration().appPort);
+  await app.listen(configuration().appPort || 8850);
 }
 bootstrap();

@@ -1,9 +1,8 @@
-import { Controller, Get, Inject, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { CountriesService } from '@/countries/countries.service';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation, ApiQuery, ApiParam } from '@nestjs/swagger';
 import { QueryFilterParams } from '@Common/types/query-filter-params';
-import { PaginateDataInterface } from '@Common/types/paginate-type';
 import { Country } from '@/countries/types/country.type';
 import { APIResponseTypes } from '@Common/api-response';
 
@@ -57,9 +56,3 @@ population, area, and bordering countries.`,
     return this.CountriesService.getCountry(country);
   }
 }
-
-// TODO
-// Make response type reuseable
-// Add query examples for documentation
-// Add response types for documentation
-// add response examples

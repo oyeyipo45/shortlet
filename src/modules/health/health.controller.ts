@@ -1,5 +1,5 @@
 import { CONSTANTS } from '@Common/constants';
-import { Controller, Get, Version } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import {
   HealthCheck,
   HealthCheckResult,

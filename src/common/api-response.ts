@@ -4,6 +4,7 @@ import { Country } from '@Countries/types';
 import { StatisticsInterface } from '@Statistics/types';
 import { RegionInterface } from '@Regions/types';
 import { LanguageInterface, Language } from '@/Modules/languages/types';
+import { LanguageMap } from '@Languages/helpers';
 
 export type APIResponseTypes =
   | PaginateDataInterface
@@ -11,7 +12,7 @@ export type APIResponseTypes =
   | StatisticsInterface
   | RegionInterface[]
   | LanguageInterface
-  | Language[];
+  | LanguageMap;
 
 export const createApiResponse = (
   response: APIResponseTypes,

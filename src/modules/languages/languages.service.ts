@@ -3,9 +3,7 @@ import { APIResponse } from '@Common/types/api-response.type';
 import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { PaginateDataInterface } from '@Common/types';
-import { GetLanguagesAndSpeakers } from '@Languages/helpers';
-import { Language } from '@Languages/types';
+import { GetLanguagesAndSpeakers, LanguageMap } from '@Languages/helpers';
 import { APIResponseTypes, createApiResponse } from '@Common/api-response';
 
 @Injectable()
@@ -16,28 +14,24 @@ export class LanguagesService {
   ) {}
 
   async getLanguages(): Promise<APIResponse<APIResponseTypes>> {
+    // Check cache
+    const cachedRegions = await this.cacheManager.get<LanguageMap>(
+      'totalRegionsPopulations',
+    );
+
+    if (cachedRegions) {
+      return {
+        success: true,
+        status: HttpStatus.OK,
+        message: 'Regions retrieved successfully',
+        data: cachedRegions,
+      };
+    }
+
     // Fetch languages
     const { data, error } = await this.externalAPIService.getCountries();
 
-    const languages = GetLanguagesAndSpeakers(data);
-
-    // Check cache
-    // const cachedRegions = await this.cacheManager.get<RegionInterface[]>(
-    //   'totalRegionsPopulations',
-    // );
-
-    // if (cachedRegions) {
-    //   return {
-    //     success: true,
-    //     status: HttpStatus.OK,
-    //     message: 'Regions retrieved successfully',
-    //     data: cachedRegions,
-    //   };
-    // }
-
     if (error) {
-      console.log(error, 'error');
-
       throw new HttpException(
         'Unable to retrieve languages',
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -51,14 +45,11 @@ export class LanguagesService {
       );
     }
 
-    // const totalRegionsPopulations = calculateTotalPopulationByRegion(data);
+    // Aggregate languages and countries
+    const languages = GetLanguagesAndSpeakers(data);
 
-    // // Cache regions
-    // await this.cacheManager.set(
-    //   'totalRegionsPopulations',
-    //   totalRegionsPopulations,
-    //   3600,
-    // );
+    // Cache regions
+    await this.cacheManager.set('totalRegionsPopulations', languages, 3600);
 
     return createApiResponse(languages, 'Languages');
   }

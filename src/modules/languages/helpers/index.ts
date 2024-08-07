@@ -1,26 +1,31 @@
 import { Country } from '@/countries/types';
 import { Language } from '@/Modules/languages/types';
 
-export const GetLanguagesAndSpeakers = (data: Country[]): Language[] => {
-  const languageCounts: Record<string, Language> = {};
+interface LanguageData {
+  language: string;
+  countries: string[];
+}
+
+export interface LanguageMap {
+  [languageCode: string]: LanguageData;
+}
+
+export const GetLanguagesAndSpeakers = (data: Country[]):LanguageMap => {
+  const result: LanguageMap = {};
 
   data.forEach((country) => {
     const { languages } = country;
-    Object.entries(languages).forEach(([code, name]) => {
-      console.log(code, name);
-      console.log(languages[code], 'languages[code]');
-      console.log(languageCounts[code], 'languageCounts[code]');
-
-      languageCounts[code] = languages[code] || {
-        code,
-        name,
-        speakers: 0,
-        countries: [],
-      };
-      languageCounts[code].speakers += country.population;
-      languageCounts[code].countries.push(country.cca2);
-    });
+    for (const languageCode in languages) {
+      const language = languages[languageCode];
+      if (!result[language]) {
+        result[language] = {
+          language,
+          countries: [],
+        };
+      }
+      result[language].countries.push(country.name.common);
+    }
   });
 
-  return Object.values(languageCounts);
+  return result;
 };

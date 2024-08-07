@@ -3,8 +3,8 @@ import { APIResponse, PaginateDataInterface } from '@Common/types';
 import { Country } from '@Countries/types';
 import { StatisticsInterface } from '@Statistics/types';
 import { RegionInterface } from '@Regions/types';
-import { LanguageInterface, Language } from '@/Modules/languages/types';
-import { LanguageMap } from '@Languages/helpers';
+import { LanguageInterface } from '@/Modules/languages/types';
+import { LanguageMap } from '@Languages/types';
 
 export type APIResponseTypes =
   | PaginateDataInterface

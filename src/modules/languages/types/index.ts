@@ -9,3 +9,12 @@ export interface Language {
   speakers: number;
   countries: string[];
 }
+
+export interface LanguageData {
+  language: string;
+  countries: string[];
+}
+
+export interface LanguageMap {
+  [languageCode: string]: LanguageData;
+}

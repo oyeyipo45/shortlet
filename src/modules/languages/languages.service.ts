@@ -3,8 +3,9 @@ import { APIResponse } from '@Common/types/api-response.type';
 import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { GetLanguagesAndSpeakers, LanguageMap } from '@Languages/helpers';
+import { GetLanguagesAndSpeakers } from '@Languages/helpers';
 import { APIResponseTypes, createApiResponse } from '@Common/api-response';
+import { LanguageMap } from '@Languages/types';
 
 @Injectable()
 export class LanguagesService {

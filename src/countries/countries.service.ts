@@ -14,7 +14,7 @@ export class CountriesService {
   constructor(
     private readonly externalAPIService: ExternalAPIService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) {}
+  ) { }
 
   async getCountries(
     params: QueryFilterParams,
@@ -24,9 +24,9 @@ export class CountriesService {
     // Conditional cache check
     const cachedData = region
       ? await getCachedData<Country[]>(
-          this.cacheManager,
-          `filter-region-${region}`,
-        )
+        this.cacheManager,
+        `filter-region-${region}`,
+      )
       : await getCachedData<Country[]>(this.cacheManager, 'countries');
 
     // Return cached response
@@ -88,16 +88,4 @@ export class CountriesService {
       data,
     };
   }
-
-  // private createApiResponse(
-  //   response: PaginateDataInterface | Country,
-  //   context: string,
-  // ): APIResponse<PaginateDataInterface | Country> {
-  //   return {
-  //     success: true,
-  //     status: HttpStatus.OK,
-  //     message: `${context} retrieved successfully`,
-  //     data: response,
-  //   };
-  // }
 }

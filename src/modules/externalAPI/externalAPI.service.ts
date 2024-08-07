@@ -15,7 +15,7 @@ export class ExternalAPIService {
     try {
       if (region) {
         const regionsResponse = await this.httpService.axiosRef.get<Country[]>(
-          `region/${region}`,
+          `region/${region.toLowerCase()}`,
         );
         return { data: regionsResponse.data, error: null };
       }

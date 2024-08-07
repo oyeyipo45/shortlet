@@ -18,19 +18,21 @@ export class CountriesService {
   async getCountries(
     params: QueryFilterParams,
   ): Promise<APIResponse<PaginateDataInterface | Country>> {
-    const { page, limit } = params;
+    const { page, limit, region } = params;
 
-    // Check cache
-    const cachedCountries = await this.cacheManager.get<Country[]>('countries');
+    // Conditional cache check
+    const cachedData = region
+      ? await this.getCachedData(`filter-region-${region}`)
+      : await this.getCachedData('countries');
 
-    // Use cached response
-    if (cachedCountries) {
-      const paginatedData = paginateData(cachedCountries, page, limit);
-      return this.createApiResponse(paginatedData);
-    } 
+    // Return cached response
+    if (cachedData) {
+      const paginatedData = paginateData(cachedData, page, limit);
+      return this.createApiResponse(paginatedData, 'Countries');
+    }
 
     // Fetch countries
-    const { data, error } = await this.externalAPIService.getCountries(params);
+    const { data, error } = await this.externalAPIService.getCountries(region);
 
     if (error) {
       throw new HttpException(
@@ -46,13 +48,15 @@ export class CountriesService {
       );
     }
 
-    // Cache country data
-    await this.cacheManager.set('countries', data, 3600);
+    // Conditional cache key
+    const cacheKey = region ? `filter-region-${region}` : 'countries';
+    //Cache data
+    await this.cacheManager.set(cacheKey, data, 3600);
 
     // Paginate data
     const paginatedData = paginateData(data, page, limit);
 
-    return this.createApiResponse(paginatedData);
+    return this.createApiResponse(paginatedData, 'Countries');
   }
 
   async getCountry(country: string): Promise<APIResponse<Country[]>> {
@@ -76,19 +80,24 @@ export class CountriesService {
     return {
       success: true,
       status: HttpStatus.OK,
-      message: 'Countries retrieved successfully',
+      message: 'Country retrieved successfully',
       data,
     };
   }
 
   private createApiResponse(
     response: PaginateDataInterface | Country,
+    context: string,
   ): APIResponse<PaginateDataInterface | Country> {
     return {
       success: true,
       status: HttpStatus.OK,
-      message: 'Countries retrieved successfully',
+      message: `${context} retrieved successfully`,
       data: response,
     };
+  }
+
+  private async getCachedData(key: string): Promise<Country[] | undefined> {
+    return await this.cacheManager.get<Country[]>(key);
   }
 }

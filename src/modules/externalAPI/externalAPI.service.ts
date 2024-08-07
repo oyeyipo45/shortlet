@@ -3,7 +3,6 @@ import { Injectable, Logger } from '@nestjs/common';
 import { API_PATH } from '@ExternalAPI/constants';
 import { QueryResponse } from '@Common/types';
 import { Country } from '@/countries/types/country.type';
-import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { RegionInterface } from '@/modules/regions/types';
 import { AxiosError } from '@nestjs/terminus/dist/errors/axios.error';
 
@@ -11,28 +10,23 @@ import { AxiosError } from '@nestjs/terminus/dist/errors/axios.error';
 export class ExternalAPIService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getCountries(
-    params: QueryFilterParams,
-  ): Promise<QueryResponse<Country[]>> {
-    const filterParams = [];
-
-    const { region, population, page, limit } = params;
-
-    if (page) filterParams.push(`page=${page}`);
-    if (limit) filterParams.push(`limit=${limit}`);
-    if (region) filterParams.push(`region=${region}`);
-    if (population) filterParams.push(`population=${population}`);
-    const filter = `${
-      filterParams.length > 0 ? `?${filterParams.join('&')}` : ''
-    }`;
-
+  async getCountries(region?: string): Promise<QueryResponse<Country[]>> {
     try {
-      const { data } = await this.httpService.axiosRef.get<Country[]>(
-        `${API_PATH.ALL}${filter}`,
+      if (region) {
+        const regionsResponse = await this.httpService.axiosRef.get<Country[]>(
+          `region/${region}`,
+        );
+        return { data: regionsResponse.data, error: null };
+      }
+
+      const countriesResponse = await this.httpService.axiosRef.get<Country[]>(
+        `${API_PATH.ALL}`,
       );
 
-      return { data, error: null };
+      return { data: countriesResponse.data, error: null };
     } catch (error) {
+      console.log(error);
+
       this._coreExceptionLogger(error);
       return { data: null, error };
     }
@@ -55,19 +49,6 @@ export class ExternalAPIService {
     try {
       const { data } = await this.httpService.axiosRef.get<RegionInterface[]>(
         `/all?fields=region,population,name`,
-      );
-
-      return { data, error: null };
-    } catch (error) {
-      this._coreExceptionLogger(error);
-      return { data: null, error };
-    }
-  }
-
-  async getUnpaginatedCountries(): Promise<QueryResponse<Country[]>> {
-    try {
-      const { data } = await this.httpService.axiosRef.get<Country[]>(
-        `${API_PATH.ALL}`,
       );
 
       return { data, error: null };

@@ -16,7 +16,7 @@ export class LanguagesService {
 
   async getLanguages(): Promise<APIResponse<Language[]>> {
     // Fetch languages
-    const { data, error } = await this.externalAPIService.getUnpaginatedCountries();
+    const { data, error } = await this.externalAPIService.getCountries();
 
     const gg = GetLanguagesAndSpeakers(data);
 

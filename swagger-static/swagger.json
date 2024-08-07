@@ -23,6 +23,15 @@
             "schema": {
               "type": "number"
             }
+          },
+          {
+            "name": "region",
+            "required": false,
+            "in": "query",
+            "description": "Region to filter by",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {

@@ -18,18 +18,12 @@ export class CountriesController {
 
   @ApiOperation({ summary: 'Get countries' })
   @Get('/api/countries')
-  // @ApiQuery({
-  //   name: 'region',
-  //   required: false,
-  //   description: 'Filter by region',
-  //   type: 'number',
-  // })
-  // @ApiQuery({
-  //   name: 'population',
-  //   required: false,
-  //   description: 'filter by population size',
-  //   type: 'number',
-  // })
+  @ApiQuery({
+    name: 'region',
+    required: false,
+    description: 'Region to filter by',
+    type: 'string',
+  })
   @ApiQuery({
     name: 'page',
     required: false,
@@ -64,7 +58,9 @@ export class CountriesController {
 }
 
 // TODO
-// come back to this filters
 // Add rate limiting
 // Make response type reuseable
 // Move cache to check before call to external data service for data
+// Add query examples
+// add response examples
+// getcached reuseable across boards

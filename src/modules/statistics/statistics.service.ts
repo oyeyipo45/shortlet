@@ -6,8 +6,6 @@ import { Cache } from 'cache-manager';
 import { StatisticsInterface } from '@Statistics/types';
 import {
   aggregateStatistics,
-  findLargestArea,
-  findSmallestPopulation,
 } from '@Statistics/helpers';
 import { Country } from '@Countries/types';
 
@@ -43,8 +41,7 @@ export class StatisticsService {
     }
 
     // Fetch statistics
-    const { data, error } =
-      await this.externalAPIService.getUnpaginatedCountries();
+    const { data, error } = await this.externalAPIService.getCountries();
 
     if (error) {
       throw new HttpException(

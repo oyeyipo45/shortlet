@@ -13,7 +13,7 @@ export const getErrorMessage = (
 
     return {
       message: data.message || (<Error>error).message,
-      status: HttpStatus.BAD_REQUEST,
+      status: data.status || HttpStatus.BAD_REQUEST,
     };
   }
 

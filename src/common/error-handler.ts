@@ -19,6 +19,6 @@ export const getErrorMessage = (
 
   return {
     message: (<Error>error).message || CONSTANTS.INTERNAL_SERVER_ERROR_MESSAGE,
-    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    status: (<Error>error).status || HttpStatus.INTERNAL_SERVER_ERROR,
   };
 };

@@ -6,6 +6,7 @@ import { Cache } from 'cache-manager';
 import { RegionInterface } from '@/modules/regions/types';
 import { calculateTotalPopulationByRegion } from '@/modules/regions/helpers';
 import { getCachedData } from '@Common/get-cached-data';
+import { APIResponseTypes, createApiResponse } from '@Common/api-response';
 
 @Injectable()
 export class RegionService {
@@ -14,7 +15,7 @@ export class RegionService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  async getRegions(): Promise<APIResponse<RegionInterface[]>> {
+  async getRegions(): Promise<APIResponse<APIResponseTypes>> {
     // Check cache
     const cachedRegions = await getCachedData<RegionInterface[]>(
       this.cacheManager,
@@ -23,12 +24,7 @@ export class RegionService {
 
     // Send cached results
     if (cachedRegions) {
-      return {
-        success: true,
-        status: HttpStatus.OK,
-        message: 'Regions retrieved successfully',
-        data: cachedRegions,
-      };
+      return createApiResponse(cachedRegions, 'Regions');
     }
 
     // Fetch regions
@@ -54,11 +50,6 @@ export class RegionService {
       3600,
     );
 
-    return {
-      success: true,
-      status: HttpStatus.OK,
-      message: 'Regions retrieved successfully',
-      data: totalRegionsPopulations,
-    };
+    return createApiResponse(totalRegionsPopulations, "Regions")
   }
 }

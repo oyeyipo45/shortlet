@@ -8,6 +8,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { Country } from '@/countries/types';
 import { getCachedData } from '@Common/get-cached-data';
+import { APIResponseTypes, createApiResponse } from '@Common/api-response';
 
 @Injectable()
 export class CountriesService {
@@ -18,7 +19,7 @@ export class CountriesService {
 
   async getCountries(
     params: QueryFilterParams,
-  ): Promise<APIResponse<PaginateDataInterface | Country>> {
+  ): Promise<APIResponse<APIResponseTypes>> {
     const { page, limit, region } = params;
 
     // Conditional cache check
@@ -32,7 +33,7 @@ export class CountriesService {
     // Return cached response
     if (cachedData) {
       const paginatedData = paginateData(cachedData, page, limit);
-      return this.createApiResponse(paginatedData, 'Countries');
+      return createApiResponse(paginatedData, 'Countries');
     }
 
     // Fetch countries
@@ -60,7 +61,7 @@ export class CountriesService {
     // Paginate data
     const paginatedData = paginateData(data, page, limit);
 
-    return this.createApiResponse(paginatedData, 'Countries');
+    return createApiResponse(paginatedData, 'Countries');
   }
 
   async getCountry(country: string): Promise<APIResponse<Country[]>> {
@@ -89,15 +90,15 @@ export class CountriesService {
     };
   }
 
-  private createApiResponse(
-    response: PaginateDataInterface | Country,
-    context: string,
-  ): APIResponse<PaginateDataInterface | Country> {
-    return {
-      success: true,
-      status: HttpStatus.OK,
-      message: `${context} retrieved successfully`,
-      data: response,
-    };
-  }
+  // private createApiResponse(
+  //   response: PaginateDataInterface | Country,
+  //   context: string,
+  // ): APIResponse<PaginateDataInterface | Country> {
+  //   return {
+  //     success: true,
+  //     status: HttpStatus.OK,
+  //     message: `${context} retrieved successfully`,
+  //     data: response,
+  //   };
+  // }
 }

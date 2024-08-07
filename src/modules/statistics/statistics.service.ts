@@ -7,6 +7,7 @@ import { StatisticsInterface } from '@Statistics/types';
 import { aggregateStatistics } from '@Statistics/helpers';
 import { Country } from '@Countries/types';
 import { getCachedData } from '@Common/get-cached-data';
+import { APIResponseTypes, createApiResponse } from '@Common/api-response';
 
 @Injectable()
 export class StatisticsService {
@@ -14,7 +15,7 @@ export class StatisticsService {
     private readonly externalAPIService: ExternalAPIService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
-  async getStatistics(): Promise<APIResponse<StatisticsInterface>> {
+  async getStatistics(): Promise<APIResponse<APIResponseTypes>> {
     // Check cache
     const cachedStatistics = await getCachedData<StatisticsInterface>(
       this.cacheManager,
@@ -22,12 +23,7 @@ export class StatisticsService {
     );
 
     if (cachedStatistics) {
-      return {
-        success: true,
-        status: HttpStatus.OK,
-        message: 'Statistics retrieved successfully',
-        data: cachedStatistics,
-      };
+      return createApiResponse(cachedStatistics, 'Statistics');
     }
 
     // Check cache for countries
@@ -41,12 +37,7 @@ export class StatisticsService {
       // Aggregate response
       const calculatedStatistics = aggregateStatistics(cachedCountries);
 
-      return {
-        success: true,
-        status: HttpStatus.OK,
-        message: 'Statistics retrieved successfully',
-        data: calculatedStatistics,
-      };
+      return createApiResponse(calculatedStatistics, 'Statistics');
     }
 
     // Fetch statistics
@@ -72,11 +63,6 @@ export class StatisticsService {
     // Cache statistics
     await this.cacheManager.set('statistics', calculatedStatistics, 3600);
 
-    return {
-      success: true,
-      status: HttpStatus.OK,
-      message: 'Statistics retrieved successfully',
-      data: calculatedStatistics,
-    };
+    return createApiResponse(calculatedStatistics, 'Statistics');
   }
 }

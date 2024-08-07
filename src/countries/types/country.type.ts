@@ -13,7 +13,7 @@ export interface Country {
   altSpellings: string[];
   region: string;
   languages: Languages;
-  translations: Translations;
+  translations: any;
   latlng: number[];
   landlocked: boolean;
   area: number;
@@ -28,8 +28,18 @@ export interface Country {
   coatOfArms: CoatOfArms;
   startOfWeek: string;
   capitalInfo: CapitalInfo;
+  cioc?: string;
+  subregion?: string;
+  borders?: string[];
+  gini?: any;
+  fifa?: string;
+  postalCode?: postalCode;
 }
 
+export interface postalCode {
+  format: string;
+  regex: string;
+}
 export interface Name {
   common: string;
   official: string;
@@ -61,15 +71,6 @@ export interface Idd {
 
 export interface Languages {
   eng: string;
-}
-
-export interface Translations {
-  ara: Ara;
-}
-
-export interface Ara {
-  official: string;
-  common: string;
 }
 
 export interface Demonyms {

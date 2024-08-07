@@ -6,6 +6,7 @@ import { Cache } from 'cache-manager';
 import { PaginateDataInterface } from '@Common/types';
 import { GetLanguagesAndSpeakers } from '@Languages/helpers';
 import { Language } from '@Languages/types';
+import { APIResponseTypes, createApiResponse } from '@Common/api-response';
 
 @Injectable()
 export class LanguagesService {
@@ -14,13 +15,11 @@ export class LanguagesService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  async getLanguages(): Promise<APIResponse<Language[]>> {
+  async getLanguages(): Promise<APIResponse<APIResponseTypes>> {
     // Fetch languages
     const { data, error } = await this.externalAPIService.getCountries();
 
-    const gg = GetLanguagesAndSpeakers(data);
-
-    console.log(gg, 'gg');
+    const languages = GetLanguagesAndSpeakers(data);
 
     // Check cache
     // const cachedRegions = await this.cacheManager.get<RegionInterface[]>(
@@ -61,22 +60,6 @@ export class LanguagesService {
     //   3600,
     // );
 
-    return {
-      success: true,
-      status: HttpStatus.OK,
-      message: 'Languages retrieved successfully',
-      data: gg,
-    };
-  }
-
-  private createApiResponse(
-    response: PaginateDataInterface,
-  ): APIResponse<PaginateDataInterface> {
-    return {
-      success: true,
-      status: HttpStatus.OK,
-      message: 'Languages retrieved successfully',
-      data: response,
-    };
+    return createApiResponse(languages, 'Languages');
   }
 }

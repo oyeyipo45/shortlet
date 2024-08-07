@@ -1,18 +1,19 @@
 import { HttpStatus } from '@nestjs/common';
 import { APIResponse, PaginateDataInterface } from '@Common/types';
-import { Country } from '@Countries/types';
+import { Country} from '@Countries/types';
 import { StatisticsInterface } from '@Statistics/types';
 import { RegionInterface } from '@Regions/types';
-import { LanguageInterface } from '@/Modules/languages/types';
+import { Languages } from '@/Modules/languages/types';
 import { LanguageMap } from '@Languages/types';
+
 
 export type APIResponseTypes =
   | PaginateDataInterface
   | Country
   | StatisticsInterface
   | RegionInterface[]
-  | LanguageInterface
-  | LanguageMap;
+  | LanguageMap
+  | Languages;
 
 export const createApiResponse = (
   response: APIResponseTypes,

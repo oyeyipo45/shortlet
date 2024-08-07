@@ -1,8 +1,15 @@
-import { Country } from '@/countries/types';
-import { LanguageMap } from '@Languages/types';
+import { CountryLa } from '@Languages/types';
 
+interface LanguageData {
+  language: string;
+  countries: string[];
+}
 
-export const GetLanguagesAndSpeakers = (data: Country[]):LanguageMap => {
+export interface LanguageMap {
+  [languageCode: string]: LanguageData;
+}
+
+export const GetLanguagesAndSpeakers = (data: CountryLa[]): LanguageMap => {
   const result: LanguageMap = {};
 
   data.forEach((country) => {

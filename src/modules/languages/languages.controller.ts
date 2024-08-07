@@ -2,7 +2,6 @@ import { Controller, Get } from '@nestjs/common';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { LanguagesService } from '@Languages/languages.service';
-import { Language } from '@Languages/types';
 import { APIResponseTypes } from '@Common/api-response';
 
 @ApiTags('Languages')

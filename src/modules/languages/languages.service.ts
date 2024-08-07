@@ -5,7 +5,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { GetLanguagesAndSpeakers } from '@Languages/helpers';
 import { APIResponseTypes, createApiResponse } from '@Common/api-response';
-import { LanguageMap } from '@Languages/types';
+import { Languages } from '@Languages/types';
 
 @Injectable()
 export class LanguagesService {
@@ -16,21 +16,17 @@ export class LanguagesService {
 
   async getLanguages(): Promise<APIResponse<APIResponseTypes>> {
     // Check cache
-    const cachedRegions = await this.cacheManager.get<LanguageMap>(
-      'totalRegionsPopulations',
+    const cachedLanguages = await this.cacheManager.get<Languages>(
+      'languagesAndSpeakers',
     );
 
-    if (cachedRegions) {
-      return {
-        success: true,
-        status: HttpStatus.OK,
-        message: 'Regions retrieved successfully',
-        data: cachedRegions,
-      };
+    if (cachedLanguages) {
+      return createApiResponse(cachedLanguages, 'Languages');
     }
 
     // Fetch languages
-    const { data, error } = await this.externalAPIService.getCountries();
+    const { data, error } =
+      await this.externalAPIService.getLanguagedAndSpeakers();
 
     if (error) {
       throw new HttpException(
@@ -50,7 +46,7 @@ export class LanguagesService {
     const languages = GetLanguagesAndSpeakers(data);
 
     // Cache regions
-    await this.cacheManager.set('totalRegionsPopulations', languages, 3600);
+    await this.cacheManager.set('languagesAndSpeakers', languages, 3600);
 
     return createApiResponse(languages, 'Languages');
   }

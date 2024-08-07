@@ -1,4 +1,4 @@
-<p align="center"><b>Shortlet Test</b> <br><br> This project integrates data from the <a href="https://restcountries.com/">REST Countries API</a>. This exercise will evaluate your skills in data handling, API design, security, performance optimization, and documentation. 
+<p align="center"><b>Shortlet Test</b> <br><br> This project integrates data from the <a href="https://restcountries.com/">REST Countries API</a>. This exercise seeks to evaluate skills in data handling, API design, security, performance optimization, and documentation. 
 </p>
 
 <br>
@@ -26,7 +26,7 @@
 
 * Clone repository
   ```
-  git clone --depth 1 https://github.com/oyeyipo45/temp-lets
+  git clone --depth  https://github.com/oyeyipo45/temp-lets
   ```
 
 * Go to folder
@@ -96,4 +96,5 @@ Architecture - [Go to architecture documentation](./docs/architecture.md)
    * We could easily swap data sources with minimal updates 
 * The losely coupled nature of the application
    * Services are independent of each other
+* Data processing implementation
 

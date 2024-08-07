@@ -8,6 +8,7 @@ import { aggregateStatistics } from '@Statistics/helpers';
 import { Country } from '@Countries/types';
 import { getCachedData } from '@Common/get-cached-data';
 import { APIResponseTypes, createApiResponse } from '@Common/api-response';
+import { getErrorMessage } from '@Common/error-handler';
 
 @Injectable()
 export class StatisticsService {
@@ -44,10 +45,8 @@ export class StatisticsService {
     const { data, error } = await this.externalAPIService.getCountries();
 
     if (error) {
-      throw new HttpException(
-        'Unable to retrieve statistics',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      const { message, status } = getErrorMessage(error);
+      throw new HttpException(message, status);
     }
 
     if (!data) {

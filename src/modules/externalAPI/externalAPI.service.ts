@@ -3,7 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { API_PATH } from '@ExternalAPI/constants';
 import { QueryResponse } from '@Common/types';
 import { Country } from '@/countries/types/country.type';
-import { RegionInterface } from '@/modules/regions/types';
+import { RegionInterface } from '@Regions/types';
 import { AxiosError } from '@nestjs/terminus/dist/errors/axios.error';
 import { Languages } from '@Languages/types';
 

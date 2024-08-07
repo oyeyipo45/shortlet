@@ -1,7 +1,7 @@
 import { Controller, Get} from '@nestjs/common';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation} from '@nestjs/swagger';
-import { RegionService } from '@/modules/regions/region.service';
+import { RegionService } from '@Regions/region.service';
 import { APIResponseTypes } from '@Common/api-response';
 
 @ApiTags('Regions')

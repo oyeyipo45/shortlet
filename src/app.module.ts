@@ -8,7 +8,7 @@ import { HttpExceptionFilter } from './common/http-exception.filter';
 import { Environment } from './common/types/env.enums';
 import { configValidator } from '@Config/env.validation';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
-import { RegionModule } from '@/modules/regions/region.module';
+import { RegionModule } from '@Regions/region.module';
 import { LanguageModule } from '@Languages/languages.module';
 import { StatisticsModule } from '@Statistics/statistics.module';
 import { join } from 'path';

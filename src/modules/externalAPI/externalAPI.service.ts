@@ -26,8 +26,6 @@ export class ExternalAPIService {
 
       return { data: countriesResponse.data, error: null };
     } catch (error) {
-      console.log(error);
-
       this._coreExceptionLogger(error);
       return { data: null, error };
     }

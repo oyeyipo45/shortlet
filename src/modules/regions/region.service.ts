@@ -7,6 +7,7 @@ import { RegionInterface } from '@Regions/types';
 import { calculateTotalPopulationByRegion } from '@Regions/helpers';
 import { getCachedData } from '@Common/get-cached-data';
 import { APIResponseTypes, createApiResponse } from '@Common/api-response';
+import { getErrorMessage } from '@Common/error-handler';
 
 @Injectable()
 export class RegionService {
@@ -31,10 +32,8 @@ export class RegionService {
     const { data, error } = await this.externalAPIService.getRegions();
 
     if (error) {
-      throw new HttpException(
-        'Unable to retrieve regions',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      const { message, status } = getErrorMessage(error);
+      throw new HttpException(message, status);
     }
 
     if (!data) {

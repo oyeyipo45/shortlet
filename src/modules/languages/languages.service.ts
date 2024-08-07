@@ -6,6 +6,7 @@ import { Cache } from 'cache-manager';
 import { GetLanguagesAndSpeakers } from '@Languages/helpers';
 import { APIResponseTypes, createApiResponse } from '@Common/api-response';
 import { Languages } from '@Languages/types';
+import { getErrorMessage } from '@Common/error-handler';
 
 @Injectable()
 export class LanguagesService {
@@ -29,10 +30,8 @@ export class LanguagesService {
       await this.externalAPIService.getLanguagedAndSpeakers();
 
     if (error) {
-      throw new HttpException(
-        'Unable to retrieve languages',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      const { message, status } = getErrorMessage(error);
+      throw new HttpException(message, status);
     }
 
     if (!data) {

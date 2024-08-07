@@ -8,7 +8,7 @@ import { Cache } from 'cache-manager';
 import { Country } from '@Countries/types';
 import { getCachedData } from '@Common/get-cached-data';
 import { APIResponseTypes, createApiResponse } from '@Common/api-response';
-
+import { getErrorMessage } from '@Common/error-handler';
 @Injectable()
 export class CountriesService {
   constructor(
@@ -39,10 +39,8 @@ export class CountriesService {
     const { data, error } = await this.externalAPIService.getCountries(region);
 
     if (error) {
-      throw new HttpException(
-        'Unable to retrieve countries',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      const { message, status } = getErrorMessage(error);
+      throw new HttpException(message, status);
     }
 
     if (!data) {
@@ -68,10 +66,8 @@ export class CountriesService {
     const { data, error } = await this.externalAPIService.getCountry(country);
 
     if (error) {
-      throw new HttpException(
-        'Unable to retrieve country',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      const { message, status } = getErrorMessage(error);
+      throw new HttpException(message, status);
     }
 
     if (!data) {

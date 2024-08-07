@@ -1,22 +1,21 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Cache } from 'cache-manager';
 import { StatisticsService } from '@Statistics/statistics.service';
-import { StatisticsInterface } from '@Statistics/types';
+import { APIResponseTypes } from '@Common/api-response';
 
 @ApiTags('Statistics')
 @Controller({ version: '1' })
 export class StatisticsController {
   constructor(
     private readonly statisticsService: StatisticsService,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  @ApiOperation({ summary: 'Get statistics' })
+  @ApiOperation({ summary: `Retrieve aggregated statistics such as the total number of
+countries, the largest country by area, the smallest by population, and the
+most widely spoken language` })
   @Get('/api/statistics')
-  async getStatistics(): Promise<APIResponse<StatisticsInterface>> {
+  async getStatistics(): Promise<APIResponse<APIResponseTypes>> {
     return this.statisticsService.getStatistics();
   }
 }

@@ -1,10 +1,12 @@
-import { HttpException, HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { RegionInterface } from '@/modules/regions/types';
 import { calculateTotalPopulationByRegion } from '@/modules/regions/helpers';
+import { getCachedData } from '@Common/get-cached-data';
+import { APIResponseTypes, createApiResponse } from '@Common/api-response';
 
 @Injectable()
 export class RegionService {
@@ -13,20 +15,16 @@ export class RegionService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  async getRegions(): Promise<APIResponse<RegionInterface[]>> {
+  async getRegions(): Promise<APIResponse<APIResponseTypes>> {
     // Check cache
-    const cachedRegions = await this.cacheManager.get<RegionInterface[]>(
+    const cachedRegions = await getCachedData<RegionInterface[]>(
+      this.cacheManager,
       'totalRegionsPopulations',
     );
 
     // Send cached results
     if (cachedRegions) {
-      return {
-        success: true,
-        status: HttpStatus.OK,
-        message: 'Regions retrieved successfully',
-        data: cachedRegions,
-      };
+      return createApiResponse(cachedRegions, 'Regions');
     }
 
     // Fetch regions
@@ -52,11 +50,6 @@ export class RegionService {
       3600,
     );
 
-    return {
-      success: true,
-      status: HttpStatus.OK,
-      message: 'Regions retrieved successfully',
-      data: totalRegionsPopulations,
-    };
+    return createApiResponse(totalRegionsPopulations, "Regions")
   }
 }

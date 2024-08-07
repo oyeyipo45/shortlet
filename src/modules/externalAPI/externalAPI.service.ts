@@ -5,6 +5,7 @@ import { QueryResponse } from '@Common/types';
 import { Country } from '@/countries/types/country.type';
 import { RegionInterface } from '@/modules/regions/types';
 import { AxiosError } from '@nestjs/terminus/dist/errors/axios.error';
+import { Languages } from '@Languages/types';
 
 @Injectable()
 export class ExternalAPIService {
@@ -14,7 +15,7 @@ export class ExternalAPIService {
     try {
       if (region) {
         const regionsResponse = await this.httpService.axiosRef.get<Country[]>(
-          `region/${region}`,
+          `region/${region.toLowerCase()}`,
         );
         return { data: regionsResponse.data, error: null };
       }
@@ -49,6 +50,19 @@ export class ExternalAPIService {
     try {
       const { data } = await this.httpService.axiosRef.get<RegionInterface[]>(
         `/all?fields=region,population,name`,
+      );
+
+      return { data, error: null };
+    } catch (error) {
+      this._coreExceptionLogger(error);
+      return { data: null, error };
+    }
+  }
+
+  async getLanguagedAndSpeakers(): Promise<QueryResponse<Languages[]>> {
+    try {
+      const { data } = await this.httpService.axiosRef.get<Languages[]>(
+        `all?fields=languages,name,population`,
       );
 
       return { data, error: null };

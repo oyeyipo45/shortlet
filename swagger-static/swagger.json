@@ -4,7 +4,7 @@
     "/v1/api/countries": {
       "get": {
         "operationId": "CountriesController_getCountries",
-        "summary": "Get countries",
+        "summary": "Retrieve a paginated list of all the countries in the world",
         "parameters": [
           {
             "name": "limit",
@@ -47,7 +47,7 @@
     "/v1/api/countries/{country}": {
       "get": {
         "operationId": "CountriesController_getCountry",
-        "summary": "Get single country",
+        "summary": "Retrieve detailed information for a specific country, including its languages,\npopulation, area, and bordering countries.",
         "parameters": [
           {
             "name": "country",
@@ -410,7 +410,7 @@
     "/v1/api/regions": {
       "get": {
         "operationId": "RegionsController_getRegions",
-        "summary": "Get regions",
+        "summary": "Retrieve a list of regions and the countries within each\nregion, with additional aggregated data such as the total population of the\nregion",
         "parameters": [],
         "responses": {
           "200": {
@@ -425,7 +425,7 @@
     "/v1/api/languages": {
       "get": {
         "operationId": "LanguagesController_getLanguages",
-        "summary": "Get Languages",
+        "summary": "Retrieve a list of languages and the countries where\nthey are spoken. Include the total number of speakers globally for each\nlanguage.",
         "parameters": [],
         "responses": {
           "200": {
@@ -440,7 +440,7 @@
     "/v1/api/statistics": {
       "get": {
         "operationId": "StatisticsController_getStatistics",
-        "summary": "Get statistics",
+        "summary": "Retrieve aggregated statistics such as the total number of\ncountries, the largest country by area, the smallest by population, and the\nmost widely spoken language",
         "parameters": [],
         "responses": {
           "200": {

@@ -57,23 +57,23 @@ async function bootstrap() {
     SwaggerModule.setup('api-docs', app, document);
 
     // get the swagger json file (if app is running in development mode)
-    if (process.env.NODE_ENV !== Environment.PROD) {
-      const pathToSwaggerStaticFolder = resolve(
-        process.cwd(),
-        'swagger-static',
-      );
+    // if (process.env.NODE_ENV !== Environment.PROD) {
+    //   const pathToSwaggerStaticFolder = resolve(
+    //     process.cwd(),
+    //     'swagger-static',
+    //   );
 
-      // write swagger json file
-      const pathToSwaggerJson = resolve(
-        pathToSwaggerStaticFolder,
-        'swagger.json',
-      );
-      const swaggerJson = JSON.stringify(document, null, 2);
-      writeFileSync(pathToSwaggerJson, swaggerJson);
-      console.log(
-        `Swagger JSON file written to: '/swagger-static/swagger.json'`,
-      );
-    }
+    //   // write swagger json file
+    //   const pathToSwaggerJson = resolve(
+    //     pathToSwaggerStaticFolder,
+    //     'swagger.json',
+    //   );
+    //   const swaggerJson = JSON.stringify(document, null, 2);
+    //   writeFileSync(pathToSwaggerJson, swaggerJson);
+    //   console.log(
+    //     `Swagger JSON file written to: '/swagger-static/swagger.json'`,
+    //   );
+    // }
   }
 
   // Listen to serve

@@ -1,22 +1,19 @@
-import { Controller, Get, Inject, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { CountriesService } from '@/countries/countries.service';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation, ApiQuery, ApiParam } from '@nestjs/swagger';
 import { QueryFilterParams } from '@Common/types/query-filter-params';
-import { PaginateDataInterface } from '@Common/types/paginate-type';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Cache } from 'cache-manager';
 import { Country } from '@/countries/types/country.type';
+import { APIResponseTypes } from '@Common/api-response';
 
 @ApiTags('Countries')
 @Controller({ version: '1' })
 export class CountriesController {
-  constructor(
-    private readonly CountriesService: CountriesService,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) {}
+  constructor(private readonly CountriesService: CountriesService) {}
 
-  @ApiOperation({ summary: 'Get countries' })
+  @ApiOperation({
+    summary: 'Retrieve a paginated list of all the countries in the world',
+  })
   @Get('/api/countries')
   @ApiQuery({
     name: 'region',
@@ -38,11 +35,14 @@ export class CountriesController {
   })
   async getCountries(
     @Query() query: QueryFilterParams,
-  ): Promise<APIResponse<PaginateDataInterface | Country>> {
+  ): Promise<APIResponse<APIResponseTypes>> {
     return this.CountriesService.getCountries(query);
   }
 
-  @ApiOperation({ summary: 'Get single country' })
+  @ApiOperation({
+    summary: `Retrieve detailed information for a specific country, including its languages,
+population, area, and bordering countries.`,
+  })
   @Get('/api/countries/:country')
   @ApiParam({
     name: 'country',
@@ -56,11 +56,3 @@ export class CountriesController {
     return this.CountriesService.getCountry(country);
   }
 }
-
-// TODO
-// Add rate limiting
-// Make response type reuseable
-// Move cache to check before call to external data service for data
-// Add query examples
-// add response examples
-// getcached reuseable across boards

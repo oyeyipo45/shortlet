@@ -61,7 +61,7 @@ export class StatisticsService {
     const calculatedStatistics = aggregateStatistics(data);
 
     // Cache statistics
-    await this.cacheManager.set('statistics', calculatedStatistics, 3600);
+    await this.cacheManager.set('statistics', calculatedStatistics, 3600000);
 
     return createApiResponse(calculatedStatistics, 'Statistics');
   }

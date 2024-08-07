@@ -1,6 +1,8 @@
 import { Country } from '@Countries/types';
 
-export const calculateTotalPopulationByRegion = (countries: Partial<Country>[]) => {
+export const calculateTotalPopulationByRegion = (
+  countries: Partial<Country>[],
+) => {
   const regionData = countries.reduce(
     (acc, country) => {
       const { region, population } = country;

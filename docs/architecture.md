@@ -37,68 +37,67 @@ The main motivation for choosing this archirectute was to build a modular and lo
 │   ├── health.spec.ts
 │   ├── regions.spec.ts
 │   └── countries.spec.ts
-├── src
-│   ├── common
-│   │     ├── constants
-│   │     │   └── index.ts
-│   │     ├── types
-│   │     │   └──[type].ts
-│   │     ├── http-exception-filter.ts
-│   │     ├── index.ts
-│   │     └── paginate.ts
-│   ├── config
-│   │     ├── env.validation.ts
-│   │     └── index.ts
-│   ├── countries
-│   │      ├── types
-│   │      │    ├── country.type.ts
-│   │      │    └── index.ts
-│   │      ├── countries.controller.spec.ts
-│   │      ├── countries.controller.ts
-│   │      ├── countries.service.ts
-│   │      └── countries.module.ts
-│   ├── modules
-│   │    ├── externalAPI
-│   │    │     ├── constants.ts
-│   │    │     ├── externalAPI.service.ts
-│   │    │     └── externalAPI.module.ts
-│   │    ├── health
-│   │    │     ├── health.controller.ts
-│   │    │     └── health.module.ts
-│   │    ├── languages
-│   │    │     ├── helpers
-│   │    │     │    └── index.ts
-│   │    │     ├── types
-│   │    │     │    └── index.ts
-│   │    │     ├── languages.controller.spec.ts
-│   │    │     ├── languages.controller.ts
-│   │    │     ├── languages.service.ts
-│   │    │     └── languages.module.ts
-│   │    ├── regions
-│   │    │     ├── helpers
-│   │    │     │    └── index.ts
-│   │    │     ├── types
-│   │    │     │    └── index.ts
-│   │    │     ├── regions.controller.spec.ts
-│   │    │     ├── regions.controller.ts
-│   │    │     ├── regions.service.ts
-│   │    │     └── regions.module.ts
-│   │    ├── statistics
-│   │    │     ├── helpers
-│   │    │     │    └── index.ts
-│   │    │     ├── types
-│   │    │     │    └── index.ts
-│   │    │     ├── statistics.controller.spec.ts
-│   │    │     ├── statistics.controller.ts
-│   │    │     ├── statistics.service.ts
-│   │    │     └── statistics.module.ts
-│   │    ├── app.module.ts
-│   │    └── main.ts
-│   ├── utils
-│   ├── app.module.ts
-│   └── main.ts
-└── swagger-static
-    └── swagger.json
+└── src
+    ├── common
+    │     ├── constants
+    │     │   └── index.ts
+    │     ├── types
+    │     │   └──[type].ts
+    │     ├── http-exception-filter.ts
+    │     ├── index.ts
+    │     └── paginate.ts
+    ├── config
+    │     ├── env.validation.ts
+    │     └── index.ts
+    ├── countries
+    │      ├── types
+    │      │    ├── country.type.ts
+    │      │    └── index.ts
+    │      ├── countries.controller.spec.ts
+    │      ├── countries.controller.ts
+    │      ├── countries.service.ts
+    │      └── countries.module.ts
+    ├── modules
+    │    ├── externalAPI
+    │    │     ├── constants.ts
+    │    │     ├── externalAPI.service.ts
+    │    │     └── externalAPI.module.ts
+    │    ├── health
+    │    │     ├── health.controller.ts
+    │    │     └── health.module.ts
+    │    ├── languages
+    │    │     ├── helpers
+    │    │     │    └── index.ts
+    │    │     ├── types
+    │    │     │    └── index.ts
+    │    │     ├── languages.controller.spec.ts
+    │    │     ├── languages.controller.ts
+    │    │     ├── languages.service.ts
+    │    │     └── languages.module.ts
+    │    ├── regions
+    │    │     ├── helpers
+    │    │     │    └── index.ts
+    │    │     ├── types
+    │    │     │    └── index.ts
+    │    │     ├── regions.controller.spec.ts
+    │    │     ├── regions.controller.ts
+    │    │     ├── regions.service.ts
+    │    │     └── regions.module.ts
+    │    ├── statistics
+    │    │     ├── helpers
+    │    │     │    └── index.ts
+    │    │     ├── types
+    │    │     │    └── index.ts
+    │    │     ├── statistics.controller.spec.ts
+    │    │     ├── statistics.controller.ts
+    │    │     ├── statistics.service.ts
+    │    │     └── statistics.module.ts
+    │    ├── app.module.ts
+    │    └── main.ts
+    ├── utils
+    ├── app.module.ts
+    └── main.ts
+
 ```
 
 

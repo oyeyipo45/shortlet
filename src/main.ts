@@ -8,8 +8,6 @@ import helmet from 'helmet';
 import { Environment } from './common/types/env.enums';
 import { ConfigService } from '@nestjs/config';
 import { Config } from './common';
-import { resolve } from 'path';
-import { writeFileSync } from 'fs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -21,9 +19,6 @@ async function bootstrap() {
 
   // Initialise config with accurate types
   const configService = app.get(ConfigService<Config, true>);
-
-  // Helmet - Security Middleware
-  app.use(helmet());
 
   // API Version
   app.enableVersioning({
@@ -54,26 +49,23 @@ async function bootstrap() {
       .setVersion('1.0')
       .build();
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api-docs', app, document);
+    SwaggerModule.setup('api-docs', app, document, {
+      customSiteTitle: 'Api Docs',
+      customfavIcon:
+        'https://avatars.githubusercontent.com/u/6936373?s=200&v=4',
+      customJs: [
+        'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js',
+      ],
+      customCssUrl: [
+        'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
+        'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.css',
+        'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
+      ],
+    });
 
-    // get the swagger json file (if app is running in development mode)
-    // if (process.env.NODE_ENV !== Environment.PROD) {
-    //   const pathToSwaggerStaticFolder = resolve(
-    //     process.cwd(),
-    //     'swagger-static',
-    //   );
-
-    //   // write swagger json file
-    //   const pathToSwaggerJson = resolve(
-    //     pathToSwaggerStaticFolder,
-    //     'swagger.json',
-    //   );
-    //   const swaggerJson = JSON.stringify(document, null, 2);
-    //   writeFileSync(pathToSwaggerJson, swaggerJson);
-    //   console.log(
-    //     `Swagger JSON file written to: '/swagger-static/swagger.json'`,
-    //   );
-    // }
+    // Helmet - Security Middleware
+    app.use(helmet());
   }
 
   // Listen to serve

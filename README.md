@@ -14,7 +14,7 @@
   * Architecture - [Go to architecture documentation](./docs/architecture.md)
 
   * <p>Repository - <a target="_blank" href="https://github.com/oyeyipo45/temp-lets">SHORTLET BACKEND REPOSITORY </a></p>
-  * <p>Postman documentation - <a target="_blank" href="http://localhost:8850/api-docs">POSTMAN API DOCUMENTATION </a></p>
+  * <p>Swagger documentation - <a target="_blank" href="https://shortlet-backend.vercel.app/api-docs">SWAGGER API DOCUMENTATION </a></p>
   * <p>Local Swagger documentation - <a target="_blank" href="http://localhost:8850/api-docs">LOCAL API DOCUMENTATION </a></p>
     *  The application should be running before testing the local api documentation <br><br>
 
@@ -77,10 +77,23 @@ Architecture - [Go to architecture documentation](./docs/architecture.md)
 # Challenges
 * Caching and deciding time frame to invalidate cache
 * To run unit tests (controllers) in development mode
+* Data processing
 
 # Features include
   * E2E and unit tests.
+  * Filtering countries
+  * Logging
 
 # Potential Improvements
 * Logging using datadog
 * Using redis for caching instead of Nestjs default cache manager
+* Extensive error handling
+
+
+# Aspect I'm most proud of
+* The overall project structure 
+   * This makes the application easily extendable
+   * We could easily swap data sources with minimal updates 
+* The losely coupled nature of the application
+   * Services are independent of each other
+

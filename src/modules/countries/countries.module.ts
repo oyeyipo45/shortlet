@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { CountriesController } from '@/countries/countries.controller';
-import { CountriesService } from '@/countries/countries.service';
-import { ExternalAPIModule } from '../modules/externalAPI/externalAPI.module';
+import { CountriesController } from '@Countries/countries.controller';
+import { CountriesService } from '@Countries/countries.service';
+import { ExternalAPIModule } from '../externalAPI/externalAPI.module';
 import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({

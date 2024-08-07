@@ -1,4 +1,4 @@
-import { CountriesModule } from '@/countries/countries.module';
+import { CountriesModule } from '@Countries/countries.module';
 import { ExternalAPIModule } from '@ExternalAPI/externalAPI.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -8,21 +8,14 @@ import { HttpExceptionFilter } from './common/http-exception.filter';
 import { Environment } from './common/types/env.enums';
 import { configValidator } from '@Config/env.validation';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
-import { RegionModule } from '@/modules/regions/region.module';
+import { RegionModule } from '@Regions/region.module';
 import { LanguageModule } from '@Languages/languages.module';
 import { StatisticsModule } from '@Statistics/statistics.module';
-import { join } from 'path';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { LoggerInterceptor } from '@Common/logger.interceptor';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
-    // ServeStaticModule.forRoot({
-    //   rootPath: join(__dirname, '..', 'swagger-static'),
-    //   serveRoot:
-    //     configuration().nodeENV === Environment.PROD ? '/' : '/api-docs',
-    // }),
     ConfigModule.forRoot({
       isGlobal: true,
       expandVariables: true,

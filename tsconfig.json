@@ -22,7 +22,7 @@
       "@Common/*": ["src/common/*"],
       "@Config/*": ["src/config/*"],
       "@Statistics/*": ["src/modules/statistics/*"],
-      "@Countries/*": ["src/countries/*"],
+      "@Countries/*": ["src/modules/countries/*"],
       "@Regions/*": ["src/modules/regions/*"],
       "@ExternalAPI/*": ["src/modules/externalAPI/*"],
       "@Health/*": ["src/modules/health/*"],

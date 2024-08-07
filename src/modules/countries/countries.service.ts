@@ -5,7 +5,7 @@ import { QueryFilterParams } from '@Common/types/query-filter-params';
 import { paginateData } from '@Common/paginate';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { Country } from '@/countries/types';
+import { Country } from '@Countries/types';
 import { getCachedData } from '@Common/get-cached-data';
 import { APIResponseTypes, createApiResponse } from '@Common/api-response';
 
@@ -14,7 +14,7 @@ export class CountriesService {
   constructor(
     private readonly externalAPIService: ExternalAPIService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) { }
+  ) {}
 
   async getCountries(
     params: QueryFilterParams,
@@ -24,9 +24,9 @@ export class CountriesService {
     // Conditional cache check
     const cachedData = region
       ? await getCachedData<Country[]>(
-        this.cacheManager,
-        `filter-region-${region}`,
-      )
+          this.cacheManager,
+          `filter-region-${region}`,
+        )
       : await getCachedData<Country[]>(this.cacheManager, 'countries');
 
     // Return cached response
@@ -55,7 +55,7 @@ export class CountriesService {
     // Conditional cache key
     const cacheKey = region ? `filter-region-${region}` : 'countries';
     //Cache data
-    await this.cacheManager.set(cacheKey, data, 3600);
+    await this.cacheManager.set(cacheKey, data, 3600000);
 
     // Paginate data
     const paginatedData = paginateData(data, page, limit);

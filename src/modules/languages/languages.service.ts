@@ -46,7 +46,7 @@ export class LanguagesService {
     const languages = GetLanguagesAndSpeakers(data);
 
     // Cache regions
-    await this.cacheManager.set('languagesAndSpeakers', languages, 3600);
+    await this.cacheManager.set('languagesAndSpeakers', languages, 3600000);
 
     return createApiResponse(languages, 'Languages');
   }

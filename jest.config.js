@@ -12,7 +12,7 @@ module.exports = {
     '^@Common/(.*)$': '<rootDir>/src/common/$1',
     '^@Config/(.*)$': '<rootDir>/src/config/$1',
     '^@ExternalAPI/(.*)$': '<rootDir>/src/modules/externalAPI/$1',
-    '^@Countries/(.*)$': '<rootDir>/src/countries/$1',
+    '^@Countries/(.*)$': '<rootDir>/src/modules/countries/$1',
     '^@Regions/(.*)$': '<rootDir>/src/modules/regions/$1',
     '^@Health/(.*)$': '<rootDir>/src/modules/health/$1',
     '^@Languages/(.*)$': '<rootDir>/src/modules/languages/$1',

@@ -3,8 +3,8 @@ import { APIResponse } from '@Common/types/api-response.type';
 import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { RegionInterface } from '@/modules/regions/types';
-import { calculateTotalPopulationByRegion } from '@/modules/regions/helpers';
+import { RegionInterface } from '@Regions/types';
+import { calculateTotalPopulationByRegion } from '@Regions/helpers';
 import { getCachedData } from '@Common/get-cached-data';
 import { APIResponseTypes, createApiResponse } from '@Common/api-response';
 
@@ -47,9 +47,9 @@ export class RegionService {
     await this.cacheManager.set(
       'totalRegionsPopulations',
       totalRegionsPopulations,
-      3600,
+      3600000,
     );
 
-    return createApiResponse(totalRegionsPopulations, "Regions")
+    return createApiResponse(totalRegionsPopulations, 'Regions');
   }
 }

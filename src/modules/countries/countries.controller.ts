@@ -1,9 +1,9 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { CountriesService } from '@/countries/countries.service';
+import { CountriesService } from '@Countries/countries.service';
 import { APIResponse } from '@Common/types/api-response.type';
 import { ApiTags, ApiOperation, ApiQuery, ApiParam } from '@nestjs/swagger';
 import { QueryFilterParams } from '@Common/types/query-filter-params';
-import { Country } from '@/countries/types/country.type';
+import { Country } from '@Countries/types/country.type';
 import { APIResponseTypes } from '@Common/api-response';
 
 @ApiTags('Countries')

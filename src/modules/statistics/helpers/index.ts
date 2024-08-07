@@ -1,4 +1,4 @@
-import { Country } from '@/countries/types';
+import { Country } from '@Countries/types';
 import { StatisticsInterface } from '@Statistics/types';
 
 export const findLargestArea = (data: Country[]): string => {

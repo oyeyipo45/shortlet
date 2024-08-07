@@ -8,8 +8,8 @@
   },
   "moduleNameMapper": {
     "^@Common/(.*)$": "<rootDir>/src/common/$1",
-    "^@Countries/(.*)$": "<rootDir>/src/countries/$1",
-    "^@Regions/(.*)$": "<rootDir>/src/regions/$1",
+    "^@Countries/(.*)$": "<rootDir>/src/modules/countries/$1",
+    "^@Regions/(.*)$": "<rootDir>/src/modules/regions/$1",
     "^@ExternalAPI/(.*)$": "<rootDir>/src/modules/externalAPI/$1",
     "^@Statistics/(.*)$": "<rootDir>/src/modules/statistics/$1",
     "^@Config/(.*)$": "<rootDir>/src/config/$1",

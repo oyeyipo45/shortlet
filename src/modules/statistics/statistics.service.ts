@@ -4,10 +4,9 @@ import { ExternalAPIService } from '@ExternalAPI/externalAPI.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { StatisticsInterface } from '@Statistics/types';
-import {
-  aggregateStatistics,
-} from '@Statistics/helpers';
+import { aggregateStatistics } from '@Statistics/helpers';
 import { Country } from '@Countries/types';
+import { getCachedData } from '@Common/get-cached-data';
 
 @Injectable()
 export class StatisticsService {
@@ -17,8 +16,10 @@ export class StatisticsService {
   ) {}
   async getStatistics(): Promise<APIResponse<StatisticsInterface>> {
     // Check cache
-    const cachedStatistics =
-      await this.cacheManager.get<StatisticsInterface>('statistics');
+    const cachedStatistics = await getCachedData<StatisticsInterface>(
+      this.cacheManager,
+      'statistics',
+    );
 
     if (cachedStatistics) {
       return {
@@ -30,14 +31,22 @@ export class StatisticsService {
     }
 
     // Check cache for countries
-    const cachedCountries = await this.cacheManager.get<Country[]>('countries');
+    const cachedCountries = await getCachedData<Country[]>(
+      this.cacheManager,
+      'countries',
+    );
 
     // Use cached response
     if (cachedCountries) {
       // Aggregate response
       const calculatedStatistics = aggregateStatistics(cachedCountries);
-      // Cache statistics
-      await this.cacheManager.set('statistics', calculatedStatistics, 3600);
+
+      return {
+        success: true,
+        status: HttpStatus.OK,
+        message: 'Statistics retrieved successfully',
+        data: calculatedStatistics,
+      };
     }
 
     // Fetch statistics

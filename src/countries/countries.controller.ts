@@ -58,7 +58,6 @@ export class CountriesController {
 }
 
 // TODO
-// Add rate limiting
 // Make response type reuseable
 // Move cache to check before call to external data service for data
 // Add query examples

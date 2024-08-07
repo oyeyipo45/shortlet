@@ -7,6 +7,7 @@ import { PaginateDataInterface } from '@Common/types/paginate-type';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { Country } from '@/countries/types';
+import { getCachedData } from '@Common/get-cached-data';
 
 @Injectable()
 export class CountriesService {
@@ -22,8 +23,11 @@ export class CountriesService {
 
     // Conditional cache check
     const cachedData = region
-      ? await this.getCachedData(`filter-region-${region}`)
-      : await this.getCachedData('countries');
+      ? await getCachedData<Country[]>(
+          this.cacheManager,
+          `filter-region-${region}`,
+        )
+      : await getCachedData<Country[]>(this.cacheManager, 'countries');
 
     // Return cached response
     if (cachedData) {
@@ -95,9 +99,5 @@ export class CountriesService {
       message: `${context} retrieved successfully`,
       data: response,
     };
-  }
-
-  private async getCachedData(key: string): Promise<Country[] | undefined> {
-    return await this.cacheManager.get<Country[]>(key);
   }
 }

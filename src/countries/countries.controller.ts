@@ -63,3 +63,4 @@ export class CountriesController {
 // Move cache to check before call to external data service for data
 // Add query examples
 // add response examples
+// getcached reuseable across boards
